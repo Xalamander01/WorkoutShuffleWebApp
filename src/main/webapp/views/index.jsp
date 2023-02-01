@@ -28,5 +28,11 @@
 <li> workoutType: ${workout.workoutType} workoutArmGoal: ${workout.workoutArmGoal} workoutChestGoal: ${workout.workoutChestGoal} workoutBackGoal: ${workout.workoutBackGoal} workoutLegsGoal: ${workout.workoutLegsGoal} workoutShoulderGoal: ${workout.workoutShoulderGoal} </li>
 </c:forEach>
 </ul>
+<hr>
+<ul>
+<c:forEach items="${workoutSplits}" var="workoutSplit">
+<li> workoutSplitId: ${workoutSplit.splitId} workoutSplit: ${workoutSplit.workoutSplit} workoutsPerWeek: ${workoutSplit.workoutsPerWeek} typesOfWorkouts: ${workoutSplit.typesOfWorkouts} </li>
+</c:forEach>
+</ul>
 </body>
 </html>
