@@ -2,8 +2,8 @@ package org.workoutShuffle.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.workoutShuffle.entity.UserEntity;
-import org.workoutShuffle.repository.UserRepository;
+import org.workoutShuffle.entity.WorkoutSplitsEntity;
+import org.workoutShuffle.repository.WorkoutSplitsRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class WorkoutSplitsService {
     @Autowired
     private WorkoutSplitsRepository workoutSplitsRepository;
 
-    public List<WorkoutSplitsEntity> getUsers() {
+    public List<WorkoutSplitsEntity> getWorkoutSplits() {
         List<WorkoutSplitsEntity> workoutSplitsList = new ArrayList<>();
         for (WorkoutSplitsEntity workoutSplit : workoutSplitsRepository.findAll()) {
             workoutSplitsList.add(workoutSplit);
@@ -22,8 +22,8 @@ public class WorkoutSplitsService {
         return workoutSplitsList;
     }
 
-    public WorkoutSplitsEntity getWorkoutSplit(Integer workoutSplitId) {
-        return workoutSplitsRepository.findById(workoutSplitId).get();
+    public WorkoutSplitsEntity getWorkoutSplit(String workoutSplit) {
+        return workoutSplitsRepository.findById(workoutSplit).get();
     }
 
     public void addWorkoutSplit(WorkoutSplitsEntity workoutSplitToAdd) {
@@ -34,7 +34,7 @@ public class WorkoutSplitsService {
         workoutSplitsRepository.save(workoutSplitToUpdate);
     }
 
-    public void deleteWorkoutSplit(Integer workoutSplitId) {
-        workoutSplitsRepository.deleteById(workoutSplitId);
+    public void deleteWorkoutSplit(String workoutSplit) {
+        workoutSplitsRepository.deleteById(workoutSplit);
     }
 }

@@ -1,18 +1,21 @@
 package org.workoutShuffle.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 @Entity
-@Table="workout_splits"
+@Table(name="workout_splits")
 public class WorkoutSplitsEntity {
   
   @Id
-  @Column(name="split_id")
-  Integer splitId;
   @Column(name="workout_split")
-  String workoutSplit;
+  private String workoutSplit;
   @Column(name="workouts_per_week")
-  Integer workoutsPerWeek;
+  private Integer workoutsPerWeek;
   @Column(name="types_of_workouts")
-  String typesOfWorkouts;
+  private String typesOfWorkouts;
   
   public WorkoutSplitsEntity() {}
   public WorkoutSplitsEntity(String workoutSplit, Integer workoutsPerWeek, String typesOfWorkouts) {
@@ -37,6 +40,6 @@ public class WorkoutSplitsEntity {
     return typesOfWorkouts;
   }
   public void setTypesOfWorkouts(String typesOfWorkouts) {
-    this.typesOfWorkouts = typesOfWorkouts
+    this.typesOfWorkouts = typesOfWorkouts;
   }
 }

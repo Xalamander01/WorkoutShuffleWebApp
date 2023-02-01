@@ -13,11 +13,11 @@ import java.security.NoSuchAlgorithmException;
 public class UserEntity {
     @Id
     @Column(name = "user_id")
-    int userId;
+    private int userId;
     @Column(name = "username")
-    String username;
+    private String username;
     @Column(name = "password")
-    String password;
+    private String password;
 
     public UserEntity() {
     }

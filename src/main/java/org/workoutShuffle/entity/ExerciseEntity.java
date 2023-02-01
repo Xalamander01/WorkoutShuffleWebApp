@@ -10,11 +10,11 @@ import jakarta.persistence.Table;
 public class ExerciseEntity {
     @Id
     @Column(name="exercise_short_name")
-    String exerciseShortName;
+    private String exerciseShortName;
     @Column(name="exercise_long_name")
-    String exerciseLongName;
+    private String exerciseLongName;
     @Column(name="exercise_description")
-    String exerciseDescription;
+    private String exerciseDescription;
 
     public ExerciseEntity() {
     }
