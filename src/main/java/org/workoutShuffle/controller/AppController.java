@@ -20,6 +20,8 @@ public class AppController {
     private ExerciseService exerciseService;
     @Autowired
     private WorkoutService workoutService;
+    @Autowired
+    private WorkoutSplitsService workoutSplitsService;
 
     @GetMapping("/")
     public ModelAndView home() {
@@ -27,6 +29,7 @@ public class AppController {
         modelAndView.addObject("users", userService.getUsers());
         modelAndView.addObject("exercises", exerciseService.getExercises());
         modelAndView.addObject("workoutTypes", workoutService.getWorkouts());
+        modelAndView.addObject("workoutSplits", workoutSplitsService.getWorkoutSplits());
         return modelAndView;
     }
 }
