@@ -1,6 +1,5 @@
 package org.workoutShuffle.services;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.workoutShuffle.entity.UserEntity;
@@ -17,7 +16,7 @@ public class UserService {
 
     public List<UserEntity> getUsers() {
         List<UserEntity> userList = new ArrayList<>();
-        for ( UserEntity user : userRepository.findAll()) {
+        for (UserEntity user : userRepository.findAll()) {
             userList.add(user);
         }
         return userList;

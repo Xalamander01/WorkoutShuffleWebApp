@@ -1,19 +1,22 @@
 package org.workoutShuffle.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 @Entity
-@Table(name="users_information")
+@Table(name = "users_information")
 public class UserEntity {
     @Id
-    @Column(name="user_id")
+    @Column(name = "user_id")
     int userId;
-    @Column(name="username")
+    @Column(name = "username")
     String username;
-    @Column(name="password")
+    @Column(name = "password")
     String password;
 
     public UserEntity() {
