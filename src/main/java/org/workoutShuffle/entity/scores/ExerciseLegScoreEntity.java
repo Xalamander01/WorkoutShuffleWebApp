@@ -39,6 +39,9 @@ public class ExerciseLegScoreEntity {
     public double getAverageScore() {
         return (this.exerciseGluteMaxScore+this.exerciseGluteMedScore+this.exerciseHamstringScore+this.exerciseUpperQuadScore+this.exerciseLowerQuadScore+this.exerciseCalfScore)/6;
     }
+    public double getSumOfScore() {
+        return (this.exerciseGluteMaxScore+this.exerciseGluteMedScore+this.exerciseHamstringScore+this.exerciseUpperQuadScore+this.exerciseLowerQuadScore+this.exerciseCalfScore);
+    }
 
     public String getExerciseShortName() {
         return exerciseShortName;

@@ -30,6 +30,9 @@ public class ExerciseShoulderScoreEntity {
     public double getAverageScore() {
         return (this.exerciseFrontShoulderScore+this.exerciseRearShoulderScore+this.exerciseSideShoulderScore)/3;
     }
+    public double getSumOfScore() {
+        return (this.exerciseFrontShoulderScore+this.exerciseRearShoulderScore+this.exerciseSideShoulderScore);
+    }
 
     public String getExerciseShortName() {
         return exerciseShortName;

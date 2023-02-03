@@ -22,12 +22,11 @@ public class AppController {
     private WorkoutSplitsService workoutSplitsService;
 
     @GetMapping("/")
-    public ModelAndView home() {
-        ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("users", userService.getUsers());
-        modelAndView.addObject("exercises", exerciseService.getExercises());
-        modelAndView.addObject("workoutTypes", workoutService.getWorkouts());
-        modelAndView.addObject("workoutSplits", workoutSplitsService.getWorkoutSplits());
-        return modelAndView;
+    public String home() {
+        return "index";
+    }
+    @GetMapping("/error")
+    public String error() {
+        return "error";
     }
 }

@@ -50,28 +50,5 @@ I would like to do something extremely different every single time I am in the g
 <input type="submit" value="Submit">
 </form>
 <hr>
-<ul>
-<c:forEach items="${users}" var="user">
-<li> user id: ${user.userId} username: ${user.username} Password: ${user.password} </li>
-</c:forEach>
-</ul>
-<hr>
-<ul>
-<c:forEach items="${exercises}" var="exercise">
-<li> exerciseShortName: ${exercise.exerciseShortName} exerciseLongName: ${exercise.exerciseLongName} exerciseDescription: ${exercise.exerciseDescription} </li>
-</c:forEach>
-</ul>
-<hr>
-<ul>
-<c:forEach items="${workoutTypes}" var="workout">
-<li> workoutType: ${workout.workoutType} workoutArmGoal: ${workout.workoutArmGoal} workoutChestGoal: ${workout.workoutChestGoal} workoutBackGoal: ${workout.workoutBackGoal} workoutLegsGoal: ${workout.workoutLegsGoal} workoutShoulderGoal: ${workout.workoutShoulderGoal} </li>
-</c:forEach>
-</ul>
-<hr>
-<ul>
-<c:forEach items="${workoutSplits}" var="workoutSplit">
-<li> workoutSplit: ${workoutSplit.workoutSplit} workoutsPerWeek: ${workoutSplit.workoutsPerWeek} typesOfWorkouts: ${workoutSplit.typesOfWorkouts} </li>
-</c:forEach>
-</ul>
 </body>
 </html>

@@ -31,6 +31,9 @@ public class ExerciseChestScoreEntity {
     public double getAverageScore() {
         return (this.exerciseUpperPecScore+this.exerciseMiddlePecScore+this.exerciseLowerPecScore)/3;
     }
+    public double getSumOfScore() {
+        return (this.exerciseUpperPecScore+this.exerciseMiddlePecScore+this.exerciseLowerPecScore);
+    }
 
     public String getExerciseShortName() {
         return exerciseShortName;
