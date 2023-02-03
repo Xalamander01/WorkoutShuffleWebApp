@@ -16,6 +16,8 @@ public class WorkoutService {
     @Autowired
     private WorkoutRepository workoutRepository;
     @Autowired
+    private ExerciseService exerciseService;
+    @Autowired
     private ExerciseArmScoreService exerciseArmScoreService;
     @Autowired
     private ExerciseShoulderScoreService exerciseShoulderScoreService;
@@ -54,11 +56,12 @@ public class WorkoutService {
         List<ExerciseEntity> exerciseList = new ArrayList<>();
         WorkoutEntity workoutEntity = this.getWorkout(workoutType);
 
-        exerciseList.addAll(exerciseLegScoreService.getLegExercises());
-        exerciseList.addAll(exerciseBackScoreService.getBackExercises());
-        exerciseList.addAll(exerciseChestScoreService.getChestExercises());
-        exerciseList.addAll(exerciseShoulderScoreService.getShoulderExercises());
-        exerciseList.addAll(exerciseArmScoreService.getArmExercises());
+        exerciseList.addAll(exerciseLegScoreService.getLegExercisesForWorkout(workoutEntity.getWorkoutLegsGoal(), workoutEntity.getLegsExerciseCount()));
+        exerciseList.addAll(exerciseBackScoreService.getBackExercisesForWorkout(workoutEntity.getWorkoutBackGoal(), workoutEntity.getBackExerciseCount()));
+        exerciseList.addAll(exerciseChestScoreService.getChestExercisesForWorkout(workoutEntity.getWorkoutChestGoal(), workoutEntity.getChestExerciseCount()));
+        exerciseList.addAll(exerciseShoulderScoreService.getShoulderExercisesForWorkout(workoutEntity.getWorkoutShoulderGoal(), workoutEntity.getShoulderExerciseCount()));
+        System.out.println("TRYING TO ACHIEVE " + workoutEntity.getWorkoutArmGoal() + " SCORE WITH " + workoutEntity.getArmExerciseCount() + " EXERCISES");
+        exerciseList.addAll(exerciseArmScoreService.getArmExercisesForWorkout(workoutEntity.getWorkoutArmGoal(), workoutEntity.getArmExerciseCount()));
 
         return exerciseList;
     }

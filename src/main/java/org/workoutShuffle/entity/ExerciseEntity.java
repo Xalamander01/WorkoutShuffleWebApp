@@ -48,4 +48,13 @@ public class ExerciseEntity {
     public void setExerciseDescription(String exerciseDescription) {
         this.exerciseDescription = exerciseDescription;
     }
+
+    @Override
+    public String toString() {
+        return "ExerciseEntity{" +
+                "exerciseShortName='" + exerciseShortName + '\'' +
+                ", exerciseLongName='" + exerciseLongName + '\'' +
+                ", exerciseDescription='" + exerciseDescription + '\'' +
+                '}';
+    }
 }

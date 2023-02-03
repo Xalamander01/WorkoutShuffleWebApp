@@ -31,13 +31,6 @@ public class ExerciseBackScoreEntity {
         this.exerciseLowerLatScore = exerciseLowerLatScore;
     }
 
-    public double getAverageScore() {
-        return (this.exerciseUpperTrapScore + this.exerciseLowerTrapScore + this.exerciseUpperLatScore + this.exerciseLowerLatScore) / 4;
-    }
-    public double getSumOfScore() {
-        return (this.exerciseUpperTrapScore + this.exerciseLowerTrapScore + this.exerciseUpperLatScore + this.exerciseLowerLatScore);
-    }
-
     public String getExerciseShortName() {
         return exerciseShortName;
     }

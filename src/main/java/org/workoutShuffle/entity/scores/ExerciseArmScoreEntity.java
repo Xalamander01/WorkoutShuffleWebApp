@@ -37,14 +37,6 @@ public class ExerciseArmScoreEntity {
         this.exerciseLatTriScore = exerciseLatTriScore;
     }
 
-    public double getAverageScore() {
-        return (this.exerciseForearmScore+this.exerciseInnerBiScore+this.exerciseOuterBiScore+this.exerciseLatTriScore+this.exerciseMedTriScore+exerciseLongTriScore)/6;
-    }
-
-    public double getSumOfScore() {
-        return (this.exerciseForearmScore+this.exerciseInnerBiScore+this.exerciseOuterBiScore+this.exerciseLatTriScore+this.exerciseMedTriScore+exerciseLongTriScore);
-    }
-
     public String getExerciseShortName() {
         return exerciseShortName;
     }

@@ -14,6 +14,16 @@ public class ExerciseService {
     @Autowired
     private ExerciseRepository exerciseRepository;
 
+    public List<String> getAllExerciseShortNames() {
+
+        List<String> allExercisesList = new ArrayList<>();
+        for ( ExerciseEntity exercise : getExercises() ) {
+            allExercisesList.add(exercise.getExerciseShortName());
+        }
+        return allExercisesList;
+    }
+
+
     public List<ExerciseEntity> getExercises() {
         List<ExerciseEntity> exerciseList = new ArrayList<>();
         for (ExerciseEntity exercise : exerciseRepository.findAll()) {
