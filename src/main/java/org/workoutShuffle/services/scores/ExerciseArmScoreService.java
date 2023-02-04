@@ -2,71 +2,41 @@ package org.workoutShuffle.services.scores;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.workoutShuffle.entity.ExerciseEntity;
 import org.workoutShuffle.entity.scores.ExerciseArmScoreEntity;
 import org.workoutShuffle.repository.scores.ExerciseArmScoreRepository;
-import org.workoutShuffle.services.ExerciseService;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.Double.sum;
 
 @Service
 public class ExerciseArmScoreService {
 
     @Autowired
     private ExerciseArmScoreRepository exerciseArmScoreRepository;
-    @Autowired
-    private ExerciseService exerciseService;
 
-    public List<ExerciseEntity> getArmExercisesForWorkout(double armExerciseScoreGoal, Integer armExerciseCountGoal) {
 
-        List<String> allExerciseShortNames = getAllExerciseShortNames();
-        List<ExerciseEntity> allExercises = exerciseService.getExercises();
-        List<ExerciseEntity> exerciseListToReturn = new ArrayList<>();
-        double armScoreSoFar = 0;
-
-        while ( (exerciseListToReturn.size() < armExerciseCountGoal) || (armScoreSoFar < armExerciseScoreGoal)) {
-
-            if ( exerciseListToReturn.size() == armExerciseCountGoal && armScoreSoFar < armExerciseScoreGoal ) {
-                exerciseListToReturn = new ArrayList<>();
-                armScoreSoFar = 0;
-            }
-            int randomInt = (int) Math.floor(Math.random() * (allExerciseShortNames.size()));
-            String currentExerciseShortName = allExerciseShortNames.get(randomInt);
-
-            ExerciseEntity currentExercise = new ExerciseEntity();
-            //ExerciseEntity currentExercise = exerciseService.getExercise(currentExerciseShortName);
-            for ( ExerciseEntity exercise : allExercises) {
-                if ( currentExerciseShortName.equals(exercise.getExerciseShortName())) {
-                    currentExercise = exercise;
-                }
-            }
-
-            if (!exerciseListToReturn.contains(currentExercise)) {
-                exerciseListToReturn.add(currentExercise);
-                armScoreSoFar = sum(armScoreSoFar, getAverageScore(getExerciseArmScore(currentExerciseShortName)));
-            }
-            System.out.println( " THE SCORE COMPARISON RETURNS " + (armScoreSoFar < armExerciseScoreGoal) + " WHEN THE GOAL IS " + armExerciseScoreGoal + " AND WE GOT " + armScoreSoFar);
+    public List<String> getColumnNames() {
+        List<String> columnNames = new ArrayList<>();
+        Field[] members = ExerciseArmScoreEntity.class.getDeclaredFields();
+        for (Field member : members) {
+            columnNames.add(member.getName());
         }
-        System.out.println("THE GOAL HAS BEEN REACHED BECAUSE WE GOT " + armScoreSoFar + " SO FAR AND THE GOAL IS " + armExerciseScoreGoal);
-
-        return exerciseListToReturn;
+        return columnNames;
     }
 
-    public double getAverageScore(ExerciseArmScoreEntity exerciseArmScore) {
-        return (exerciseArmScore.getExerciseForearmScore() + exerciseArmScore.getExerciseInnerBiScore() + exerciseArmScore.getExerciseOuterBiScore() + exerciseArmScore.getExerciseLatTriScore() + exerciseArmScore.getExerciseMedTriScore() + exerciseArmScore.getExerciseLongTriScore()) / 3;
+    public double getPushScore(ExerciseArmScoreEntity exerciseArmScore) {
+        return (exerciseArmScore.getExerciseLatTriScore() + exerciseArmScore.getExerciseMedTriScore() + exerciseArmScore.getExerciseLongTriScore()) / 3;
     }
 
-    public double getSumOfScore(ExerciseArmScoreEntity exerciseArmScore) {
-        return (exerciseArmScore.getExerciseForearmScore() + exerciseArmScore.getExerciseInnerBiScore() + exerciseArmScore.getExerciseOuterBiScore() + exerciseArmScore.getExerciseLatTriScore() + exerciseArmScore.getExerciseMedTriScore() + exerciseArmScore.getExerciseLongTriScore());
+    public double getPullScore(ExerciseArmScoreEntity exerciseArmScore) {
+        return (exerciseArmScore.getExerciseInnerBiScore() + exerciseArmScore.getExerciseOuterBiScore()) / 2;
     }
 
     public List<String> getAllExerciseShortNames() {
 
         List<String> allExercisesList = new ArrayList<>();
-        for ( ExerciseArmScoreEntity exercise : getExercises() ) {
+        for (ExerciseArmScoreEntity exercise : getExercises()) {
             allExercisesList.add(exercise.getExerciseShortName());
         }
         return allExercisesList;

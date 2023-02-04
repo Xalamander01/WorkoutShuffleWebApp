@@ -23,19 +23,27 @@ public class WorkoutEntity {
     private Integer chestExerciseCount;
     @Column(name = "workout_chest_score_goal")
     private double workoutChestGoal;
-    @Column(name = "shoulder_exercise_count")
-    private Integer shoulderExerciseCount;
-    @Column(name = "workout_shoulder_score_goal")
-    private double workoutShoulderGoal;
-    @Column(name = "arm_exercise_count")
-    private Integer armExerciseCount;
-    @Column(name = "workout_arm_score_goal")
-    private double workoutArmGoal;
+    @Column(name = "shoulder_push_exercise_count")
+    private Integer shoulderPushExerciseCount;
+    @Column(name = "workout_shoulder_push_score_goal")
+    private double workoutShoulderPushGoal;
+    @Column(name = "shoulder_pull_exercise_count")
+    private Integer shoulderPullExerciseCount;
+    @Column(name = "workout_shoulder_pull_score_goal")
+    private double workoutShoulderPullGoal;
+    @Column(name = "arm_push_exercise_count")
+    private Integer armPushExerciseCount;
+    @Column(name = "workout_arm_push_score_goal")
+    private double workoutArmPushGoal;
+    @Column(name = "arm_pull_exercise_count")
+    private Integer armPullExerciseCount;
+    @Column(name = "workout_arm_pull_score_goal")
+    private double workoutArmPullGoal;
 
     public WorkoutEntity() {
     }
 
-    public WorkoutEntity(String workoutType, Integer legsExerciseCount, double workoutLegsGoal, Integer backExerciseCount, double workoutBackGoal, Integer chestExerciseCount, double workoutChestGoal, Integer shoulderExerciseCount, double workoutShoulderGoal, Integer armExerciseCount, double workoutArmGoal) {
+    public WorkoutEntity(String workoutType, Integer legsExerciseCount, double workoutLegsGoal, Integer backExerciseCount, double workoutBackGoal, Integer chestExerciseCount, double workoutChestGoal, Integer shoulderPushExerciseCount, double workoutShoulderPushGoal, Integer shoulderPullExerciseCount, double workoutShoulderPullGoal, Integer armPushExerciseCount, double workoutArmPushGoal, Integer armPullExerciseCount, double workoutArmPullGoal) {
         this.workoutType = workoutType;
         this.legsExerciseCount = legsExerciseCount;
         this.workoutLegsGoal = workoutLegsGoal;
@@ -43,10 +51,14 @@ public class WorkoutEntity {
         this.workoutBackGoal = workoutBackGoal;
         this.chestExerciseCount = chestExerciseCount;
         this.workoutChestGoal = workoutChestGoal;
-        this.shoulderExerciseCount = shoulderExerciseCount;
-        this.workoutShoulderGoal = workoutShoulderGoal;
-        this.armExerciseCount = armExerciseCount;
-        this.workoutArmGoal = workoutArmGoal;
+        this.shoulderPushExerciseCount = shoulderPushExerciseCount;
+        this.workoutShoulderPushGoal = workoutShoulderPushGoal;
+        this.shoulderPullExerciseCount = shoulderPullExerciseCount;
+        this.workoutShoulderPullGoal = workoutShoulderPullGoal;
+        this.armPushExerciseCount = armPushExerciseCount;
+        this.workoutArmPushGoal = workoutArmPushGoal;
+        this.armPullExerciseCount = armPullExerciseCount;
+        this.workoutArmPullGoal = workoutArmPullGoal;
     }
 
     public String getWorkoutType() {
@@ -105,36 +117,68 @@ public class WorkoutEntity {
         this.workoutChestGoal = workoutChestGoal;
     }
 
-    public Integer getShoulderExerciseCount() {
-        return shoulderExerciseCount;
+    public Integer getShoulderPushExerciseCount() {
+        return shoulderPushExerciseCount;
     }
 
-    public void setShoulderExerciseCount(Integer shoulderExerciseCount) {
-        this.shoulderExerciseCount = shoulderExerciseCount;
+    public void setShoulderPushExerciseCount(Integer shoulderPushExerciseCount) {
+        this.shoulderPushExerciseCount = shoulderPushExerciseCount;
     }
 
-    public double getWorkoutShoulderGoal() {
-        return workoutShoulderGoal;
+    public double getWorkoutShoulderPushGoal() {
+        return workoutShoulderPushGoal;
     }
 
-    public void setWorkoutShoulderGoal(double workoutShoulderGoal) {
-        this.workoutShoulderGoal = workoutShoulderGoal;
+    public void setWorkoutShoulderPushGoal(double workoutShoulderPushGoal) {
+        this.workoutShoulderPushGoal = workoutShoulderPushGoal;
     }
 
-    public Integer getArmExerciseCount() {
-        return armExerciseCount;
+    public Integer getShoulderPullExerciseCount() {
+        return shoulderPullExerciseCount;
     }
 
-    public void setArmExerciseCount(Integer armExerciseCount) {
-        this.armExerciseCount = armExerciseCount;
+    public void setShoulderPullExerciseCount(Integer shoulderPullExerciseCount) {
+        this.shoulderPullExerciseCount = shoulderPullExerciseCount;
     }
 
-    public double getWorkoutArmGoal() {
-        return workoutArmGoal;
+    public double getWorkoutShoulderPullGoal() {
+        return workoutShoulderPullGoal;
     }
 
-    public void setWorkoutArmGoal(double workoutArmGoal) {
-        this.workoutArmGoal = workoutArmGoal;
+    public void setWorkoutShoulderPullGoal(double workoutShoulderPullGoal) {
+        this.workoutShoulderPullGoal = workoutShoulderPullGoal;
+    }
+
+    public Integer getArmPushExerciseCount() {
+        return armPushExerciseCount;
+    }
+
+    public void setArmPushExerciseCount(Integer armPushExerciseCount) {
+        this.armPushExerciseCount = armPushExerciseCount;
+    }
+
+    public double getWorkoutArmPushGoal() {
+        return workoutArmPushGoal;
+    }
+
+    public void setWorkoutArmPushGoal(double workoutArmPushGoal) {
+        this.workoutArmPushGoal = workoutArmPushGoal;
+    }
+
+    public Integer getArmPullExerciseCount() {
+        return armPullExerciseCount;
+    }
+
+    public void setArmPullExerciseCount(Integer armPullExerciseCount) {
+        this.armPullExerciseCount = armPullExerciseCount;
+    }
+
+    public double getWorkoutArmPullGoal() {
+        return workoutArmPullGoal;
+    }
+
+    public void setWorkoutArmPullGoal(double workoutArmPullGoal) {
+        this.workoutArmPullGoal = workoutArmPullGoal;
     }
 
     @Override
@@ -147,10 +191,14 @@ public class WorkoutEntity {
                 ", workoutBackGoal=" + workoutBackGoal +
                 ", chestExerciseCount=" + chestExerciseCount +
                 ", workoutChestGoal=" + workoutChestGoal +
-                ", shoulderExerciseCount=" + shoulderExerciseCount +
-                ", workoutShoulderGoal=" + workoutShoulderGoal +
-                ", armExerciseCount=" + armExerciseCount +
-                ", workoutArmGoal=" + workoutArmGoal +
+                ", shoulderPushExerciseCount=" + shoulderPushExerciseCount +
+                ", workoutShoulderPushGoal=" + workoutShoulderPushGoal +
+                ", shoulderPullExerciseCount=" + shoulderPullExerciseCount +
+                ", workoutShoulderPullGoal=" + workoutShoulderPullGoal +
+                ", armPushExerciseCount=" + armPushExerciseCount +
+                ", workoutArmPushGoal=" + workoutArmPushGoal +
+                ", armPullExerciseCount=" + armPullExerciseCount +
+                ", workoutArmPullGoal=" + workoutArmPullGoal +
                 '}';
     }
 }

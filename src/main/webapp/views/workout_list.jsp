@@ -15,8 +15,10 @@
 A legs score of ${workoutEntity.workoutLegsGoal} needs to be reached with ${workoutEntity.legsExerciseCount} exercises.<br>
 A back score of ${workoutEntity.workoutBackGoal} needs to be reached with ${workoutEntity.backExerciseCount} exercises.<br>
 A chest score of ${workoutEntity.workoutChestGoal} needs to be reached with ${workoutEntity.chestExerciseCount} exercises.<br>
-A shoulder score of ${workoutEntity.workoutShoulderGoal} needs to be reached with ${workoutEntity.shoulderExerciseCount} exercises.<br>
-An arm score of ${workoutEntity.workoutArmGoal} needs to be reached with ${workoutEntity.armExerciseCount} exercises.<br>
+A shoulder score of ${workoutEntity.workoutShoulderPushGoal} needs to be reached with ${workoutEntity.shoulderPushExerciseCount} exercises.<br>
+A shoulder score of ${workoutEntity.workoutShoulderPullGoal} needs to be reached with ${workoutEntity.shoulderPullExerciseCount} exercises.<br>
+An arm score of ${workoutEntity.workoutArmPushGoal} needs to be reached with ${workoutEntity.armPushExerciseCount} exercises.<br>
+An arm score of ${workoutEntity.workoutArmPullGoal} needs to be reached with ${workoutEntity.armPullExerciseCount} exercises.<br>
 </ul>
 
 <hr> <h3>All exercises will be listed here</h3> <ul>
