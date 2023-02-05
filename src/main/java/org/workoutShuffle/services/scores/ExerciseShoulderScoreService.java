@@ -19,7 +19,7 @@ public class ExerciseShoulderScoreService {
     }
 
     public double getPullScore(ExerciseShoulderScoreEntity exerciseShoulderScoreEntity) {
-        return (exerciseShoulderScoreEntity.getExerciseSideShoulderScore() + exerciseShoulderScoreEntity.getExerciseRearShoulderScore()) / 2;
+        return (exerciseShoulderScoreEntity.getExerciseSideShoulderScore() + exerciseShoulderScoreEntity.getExerciseRearShoulderScore());
     }
 
     public double getAverageScore(ExerciseShoulderScoreEntity exerciseShoulderScoreEntity) {

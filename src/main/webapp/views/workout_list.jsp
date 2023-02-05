@@ -12,13 +12,14 @@
 <h1>This is the workout listing page</h1>
 
 <hr> <h2>All scores will be listed here</h2> <ul>
-A legs score of ${workoutEntity.workoutLegsGoal} needs to be reached with ${workoutEntity.legsExerciseCount} exercises.<br>
+A legs push score of ${workoutEntity.workoutLegsPushGoal} needs to be reached with ${workoutEntity.legsPushExerciseCount} exercises.<br>
+A legs pull score of ${workoutEntity.workoutLegsPullGoal} needs to be reached with ${workoutEntity.legsPullExerciseCount} exercises.<br>
 A back score of ${workoutEntity.workoutBackGoal} needs to be reached with ${workoutEntity.backExerciseCount} exercises.<br>
 A chest score of ${workoutEntity.workoutChestGoal} needs to be reached with ${workoutEntity.chestExerciseCount} exercises.<br>
-A shoulder score of ${workoutEntity.workoutShoulderPushGoal} needs to be reached with ${workoutEntity.shoulderPushExerciseCount} exercises.<br>
-A shoulder score of ${workoutEntity.workoutShoulderPullGoal} needs to be reached with ${workoutEntity.shoulderPullExerciseCount} exercises.<br>
-An arm score of ${workoutEntity.workoutArmPushGoal} needs to be reached with ${workoutEntity.armPushExerciseCount} exercises.<br>
-An arm score of ${workoutEntity.workoutArmPullGoal} needs to be reached with ${workoutEntity.armPullExerciseCount} exercises.<br>
+A shoulder push score of ${workoutEntity.workoutShoulderPushGoal} needs to be reached with ${workoutEntity.shoulderPushExerciseCount} exercises.<br>
+A shoulder pull score of ${workoutEntity.workoutShoulderPullGoal} needs to be reached with ${workoutEntity.shoulderPullExerciseCount} exercises.<br>
+An arm push score of ${workoutEntity.workoutArmPushGoal} needs to be reached with ${workoutEntity.armPushExerciseCount} exercises.<br>
+An arm pull score of ${workoutEntity.workoutArmPullGoal} needs to be reached with ${workoutEntity.armPullExerciseCount} exercises.<br>
 </ul>
 
 <hr> <h3>All exercises will be listed here</h3> <ul>

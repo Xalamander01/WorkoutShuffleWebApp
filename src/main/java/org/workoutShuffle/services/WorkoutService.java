@@ -56,26 +56,29 @@ public class WorkoutService {
         List<ExerciseEntity> exerciseList = new ArrayList<>();
         WorkoutEntity workoutEntity = this.getWorkout(workoutType);
 
-        if ( workoutEntity.getWorkoutLegsGoal() > 0 ) {
-            exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutLegsGoal(), workoutEntity.getLegsExerciseCount(), exerciseLegScoreService.getAllExerciseShortNames(), exerciseLegScoreService.getClass().getName()));
+        if ( workoutEntity.getWorkoutLegsPushGoal() > 0 ) {
+            exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutLegsPushGoal(), workoutEntity.getLegsPushExerciseCount(), exerciseLegScoreService.getAllExerciseShortNames(), exerciseLegScoreService.getClass().getName(), workoutType));
+        }
+        if ( workoutEntity.getWorkoutLegsPullGoal() > 0 ) {
+            exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutLegsPullGoal(), workoutEntity.getLegsPullExerciseCount(), exerciseLegScoreService.getAllExerciseShortNames(), exerciseLegScoreService.getClass().getName(), workoutType));
         }
         if ( workoutEntity.getWorkoutBackGoal() > 0 ) {
-            exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutBackGoal(), workoutEntity.getBackExerciseCount(), exerciseBackScoreService.getAllExerciseShortNames(), exerciseBackScoreService.getClass().getName()));
+            exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutBackGoal(), workoutEntity.getBackExerciseCount(), exerciseBackScoreService.getAllExerciseShortNames(), exerciseBackScoreService.getClass().getName(), workoutType));
         }
         if ( workoutEntity.getWorkoutChestGoal() > 0 ) {
-            exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutChestGoal(), workoutEntity.getChestExerciseCount(), exerciseChestScoreService.getAllExerciseShortNames(), exerciseChestScoreService.getClass().getName()));
+            exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutChestGoal(), workoutEntity.getChestExerciseCount(), exerciseChestScoreService.getAllExerciseShortNames(), exerciseChestScoreService.getClass().getName(), workoutType));
         }
         if ( workoutEntity.getWorkoutShoulderPushGoal() > 0 ) {
-            exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutShoulderPushGoal(), workoutEntity.getShoulderPushExerciseCount(), exerciseShoulderScoreService.getAllExerciseShortNames(), exerciseShoulderScoreService.getClass().getName()));
+            exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutShoulderPushGoal(), workoutEntity.getShoulderPushExerciseCount(), exerciseShoulderScoreService.getAllExerciseShortNames(), exerciseShoulderScoreService.getClass().getName(), workoutType));
         }
         if ( workoutEntity.getWorkoutShoulderPullGoal() > 0 ) {
-            exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutShoulderPullGoal(), workoutEntity.getShoulderPullExerciseCount(), exerciseShoulderScoreService.getAllExerciseShortNames(), exerciseShoulderScoreService.getClass().getName()));
+            exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutShoulderPullGoal(), workoutEntity.getShoulderPullExerciseCount(), exerciseShoulderScoreService.getAllExerciseShortNames(), exerciseShoulderScoreService.getClass().getName(), workoutType));
         }
         if ( workoutEntity.getWorkoutArmPushGoal() > 0 ) {
-            exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutArmPushGoal(), workoutEntity.getArmPushExerciseCount(), exerciseArmScoreService.getAllExerciseShortNames(), exerciseArmScoreService.getClass().getName()));
+            exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutArmPushGoal(), workoutEntity.getArmPushExerciseCount(), exerciseArmScoreService.getAllExerciseShortNames(), exerciseArmScoreService.getClass().getName(), workoutType));
         }
         if ( workoutEntity.getWorkoutArmPullGoal() > 0 ) {
-            exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutArmPushGoal(), workoutEntity.getArmPushExerciseCount(), exerciseArmScoreService.getAllExerciseShortNames(), exerciseArmScoreService.getClass().getName()));
+            exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutArmPullGoal(), workoutEntity.getArmPullExerciseCount(), exerciseArmScoreService.getAllExerciseShortNames(), exerciseArmScoreService.getClass().getName(), workoutType));
         }
 
         return exerciseList;

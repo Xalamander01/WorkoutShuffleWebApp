@@ -8,6 +8,7 @@ import org.workoutShuffle.services.scores.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import static java.lang.Double.sum;
 
 @Service
@@ -26,15 +27,16 @@ public class ExerciseService {
     @Autowired
     private ExerciseLegScoreService exerciseLegScoreService;
 
-    public List<ExerciseEntity> getExercisesForMuscleGroup(double exerciseScoreGoal, Integer exerciseCountGoal, List<String> allExerciseShortNames, String serviceClassName) {
+    public List<ExerciseEntity> getExercisesForMuscleGroup(double exerciseScoreGoal, Integer exerciseCountGoal, List<String> allExerciseShortNames, String serviceClassName, String workoutType) {
         List<ExerciseEntity> allExercises = getExercises();
         List<ExerciseEntity> exerciseListToReturn = new ArrayList<>();
         double scoreSoFar = 0;
         double scoreToAdd;
+        System.out.println("STARTING TO GET EXERCISES WITH SERVICE " + serviceClassName);
 
-        while ( (exerciseListToReturn.size() < exerciseCountGoal) || (scoreSoFar < exerciseScoreGoal)) {
+        while ((exerciseListToReturn.size() < exerciseCountGoal) || (scoreSoFar < exerciseScoreGoal)) {
 
-            if ( exerciseListToReturn.size() == exerciseCountGoal && scoreSoFar < exerciseScoreGoal ) {
+            if (exerciseListToReturn.size() == exerciseCountGoal && scoreSoFar < exerciseScoreGoal) {
                 exerciseListToReturn = new ArrayList<>();
                 scoreSoFar = 0;
                 //System.out.println("STARTING OVER....");
@@ -43,8 +45,8 @@ public class ExerciseService {
             String currentExerciseShortName = allExerciseShortNames.get(randomInt);
 
             ExerciseEntity currentExercise = new ExerciseEntity();
-            for ( ExerciseEntity exercise : allExercises) {
-                if ( currentExerciseShortName.equals(exercise.getExerciseShortName())) {
+            for (ExerciseEntity exercise : allExercises) {
+                if (currentExerciseShortName.equals(exercise.getExerciseShortName())) {
                     currentExercise = exercise;
                 }
             }
@@ -52,42 +54,51 @@ public class ExerciseService {
             if (!exerciseListToReturn.contains(currentExercise)) {
                 scoreToAdd = 0;
                 exerciseListToReturn.add(currentExercise);
-                switch(serviceClassName) {
+                boolean needPushScore = workoutType.equals("push") || workoutType.equals("fullBody") || workoutType.equals("upper");
+                boolean needPullScore = workoutType.equals("pull") || workoutType.equals("fullBody") || workoutType.equals("upper");
+                switch (serviceClassName) {
                     case "org.workoutShuffle.services.scores.ExerciseArmScoreService":
-                        scoreToAdd = exerciseArmScoreService.getPushScore(exerciseArmScoreService.getExerciseArmScore(currentExerciseShortName));
+                        if (needPushScore) {
+                            scoreToAdd = exerciseArmScoreService.getPushScore(exerciseArmScoreService.getExerciseArmScore(currentExerciseShortName));
+                        }
+                        if (needPullScore) {
+                            scoreToAdd = exerciseArmScoreService.getPullScore(exerciseArmScoreService.getExerciseArmScore(currentExerciseShortName));
+                        }
                         break;
                     case "org.workoutShuffle.services.scores.ExerciseShoulderScoreService":
-                        scoreToAdd = exerciseShoulderScoreService.getPushScore(exerciseShoulderScoreService.getExerciseShoulderScore(currentExerciseShortName));
+                        if (needPushScore) {
+                            scoreToAdd = exerciseShoulderScoreService.getPushScore(exerciseShoulderScoreService.getExerciseShoulderScore(currentExerciseShortName));
+                        }
+                        if (needPullScore) {
+                            scoreToAdd = exerciseShoulderScoreService.getPullScore(exerciseShoulderScoreService.getExerciseShoulderScore(currentExerciseShortName));
+                        }
                         break;
                     case "org.workoutShuffle.services.scores.ExerciseChestScoreService":
-                        scoreToAdd = exerciseChestScoreService.getSumOfScore(exerciseChestScoreService.getExerciseChestScore(currentExerciseShortName));
+                        scoreToAdd = exerciseChestScoreService.getAverageScore(exerciseChestScoreService.getExerciseChestScore(currentExerciseShortName));
                         break;
                     case "org.workoutShuffle.services.scores.ExerciseBackScoreService":
-                        scoreToAdd = exerciseBackScoreService.getSumOfScore(exerciseBackScoreService.getExerciseBackScore(currentExerciseShortName));
+                        scoreToAdd = exerciseBackScoreService.getAverageScore(exerciseBackScoreService.getExerciseBackScore(currentExerciseShortName));
                         break;
                     case "org.workoutShuffle.services.scores.ExerciseLegScoreService":
-                        scoreToAdd = exerciseLegScoreService.getSumOfScore(exerciseLegScoreService.getExerciseLegScore(currentExerciseShortName));
+                        scoreToAdd = (exerciseLegScoreService.getPushScore(exerciseLegScoreService.getExerciseLegScore(currentExerciseShortName))+exerciseLegScoreService.getPullScore(exerciseLegScoreService.getExerciseLegScore(currentExerciseShortName)))/2;
                         break;
                 }
                 scoreSoFar = sum(scoreSoFar, scoreToAdd);
             }
         }
-        /*
-        System.out.println("THE GOAL HAS BEEN REACHED BECAUSE WE GOT " + scoreSoFar + " SO FAR AND THE GOAL IS " + armExerciseScoreGoal + " WITH ");
+        System.out.println("THE GOAL HAS BEEN REACHED BECAUSE WE GOT " + scoreSoFar + " SO FAR AND THE GOAL IS " + exerciseScoreGoal + " WITH ");
         for ( ExerciseEntity exercise : exerciseListToReturn) {
             System.out.println(exercise.toString());
         }
-         */
 
         return exerciseListToReturn;
     }
 
 
-
     public List<String> getAllExerciseShortNames() {
 
         List<String> allExercisesList = new ArrayList<>();
-        for ( ExerciseEntity exercise : getExercises() ) {
+        for (ExerciseEntity exercise : getExercises()) {
             allExercisesList.add(exercise.getExerciseShortName());
         }
         return allExercisesList;

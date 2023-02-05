@@ -11,10 +11,14 @@ public class WorkoutEntity {
     @Id
     @Column(name = "workout_type")
     private String workoutType;
-    @Column(name = "legs_exercise_count")
-    private Integer legsExerciseCount;
-    @Column(name = "workout_legs_score_goal")
-    private double workoutLegsGoal;
+    @Column(name = "legs_push_exercise_count")
+    private Integer legsPushExerciseCount;
+    @Column(name = "workout_legs_push_score_goal")
+    private double workoutLegsPushGoal;
+    @Column(name = "legs_pull_exercise_count")
+    private Integer legsPullExerciseCount;
+    @Column(name = "workout_legs_pull_score_goal")
+    private double workoutLegsPullGoal;
     @Column(name = "back_exercise_count")
     private Integer backExerciseCount;
     @Column(name = "workout_back_score_goal")
@@ -43,10 +47,12 @@ public class WorkoutEntity {
     public WorkoutEntity() {
     }
 
-    public WorkoutEntity(String workoutType, Integer legsExerciseCount, double workoutLegsGoal, Integer backExerciseCount, double workoutBackGoal, Integer chestExerciseCount, double workoutChestGoal, Integer shoulderPushExerciseCount, double workoutShoulderPushGoal, Integer shoulderPullExerciseCount, double workoutShoulderPullGoal, Integer armPushExerciseCount, double workoutArmPushGoal, Integer armPullExerciseCount, double workoutArmPullGoal) {
+    public WorkoutEntity(String workoutType, Integer legsPushExerciseCount, double workoutLegsPushGoal, Integer legsPullExerciseCount, double workoutLegsPullGoal, Integer backExerciseCount, double workoutBackGoal, Integer chestExerciseCount, double workoutChestGoal, Integer shoulderPushExerciseCount, double workoutShoulderPushGoal, Integer shoulderPullExerciseCount, double workoutShoulderPullGoal, Integer armPushExerciseCount, double workoutArmPushGoal, Integer armPullExerciseCount, double workoutArmPullGoal) {
         this.workoutType = workoutType;
-        this.legsExerciseCount = legsExerciseCount;
-        this.workoutLegsGoal = workoutLegsGoal;
+        this.legsPushExerciseCount = legsPushExerciseCount;
+        this.workoutLegsPushGoal = workoutLegsPushGoal;
+        this.legsPullExerciseCount = legsPullExerciseCount;
+        this.workoutLegsPullGoal = workoutLegsPullGoal;
         this.backExerciseCount = backExerciseCount;
         this.workoutBackGoal = workoutBackGoal;
         this.chestExerciseCount = chestExerciseCount;
@@ -69,20 +75,36 @@ public class WorkoutEntity {
         this.workoutType = workoutType;
     }
 
-    public Integer getLegsExerciseCount() {
-        return legsExerciseCount;
+    public Integer getLegsPushExerciseCount() {
+        return legsPushExerciseCount;
     }
 
-    public void setLegsExerciseCount(Integer legsExerciseCount) {
-        this.legsExerciseCount = legsExerciseCount;
+    public void setLegsPushExerciseCount(Integer legsPushExerciseCount) {
+        this.legsPushExerciseCount = legsPushExerciseCount;
     }
 
-    public double getWorkoutLegsGoal() {
-        return workoutLegsGoal;
+    public double getWorkoutLegsPushGoal() {
+        return workoutLegsPushGoal;
     }
 
-    public void setWorkoutLegsGoal(double workoutLegsGoal) {
-        this.workoutLegsGoal = workoutLegsGoal;
+    public void setWorkoutLegsPushGoal(double workoutLegsPushGoal) {
+        this.workoutLegsPushGoal = workoutLegsPushGoal;
+    }
+
+    public Integer getLegsPullExerciseCount() {
+        return legsPullExerciseCount;
+    }
+
+    public void setLegsPullExerciseCount(Integer legsPullExerciseCount) {
+        this.legsPullExerciseCount = legsPullExerciseCount;
+    }
+
+    public double getWorkoutLegsPullGoal() {
+        return workoutLegsPullGoal;
+    }
+
+    public void setWorkoutLegsPullGoal(double workoutLegsPullGoal) {
+        this.workoutLegsPullGoal = workoutLegsPullGoal;
     }
 
     public Integer getBackExerciseCount() {
@@ -185,8 +207,10 @@ public class WorkoutEntity {
     public String toString() {
         return "WorkoutEntity{" +
                 "workoutType='" + workoutType + '\'' +
-                ", legsExerciseCount=" + legsExerciseCount +
-                ", workoutLegsGoal=" + workoutLegsGoal +
+                ", legsPushExerciseCount=" + legsPushExerciseCount +
+                ", workoutLegsPushGoal=" + workoutLegsPushGoal +
+                ", legsPullExerciseCount=" + legsPullExerciseCount +
+                ", workoutLegsPullGoal=" + workoutLegsPullGoal +
                 ", backExerciseCount=" + backExerciseCount +
                 ", workoutBackGoal=" + workoutBackGoal +
                 ", chestExerciseCount=" + chestExerciseCount +

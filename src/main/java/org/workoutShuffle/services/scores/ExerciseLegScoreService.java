@@ -3,7 +3,6 @@ package org.workoutShuffle.services.scores;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.workoutShuffle.entity.ExerciseEntity;
-import org.workoutShuffle.entity.scores.ExerciseArmScoreEntity;
 import org.workoutShuffle.entity.scores.ExerciseLegScoreEntity;
 import org.workoutShuffle.repository.scores.ExerciseLegScoreRepository;
 

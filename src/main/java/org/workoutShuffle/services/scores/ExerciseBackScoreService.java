@@ -3,7 +3,6 @@ package org.workoutShuffle.services.scores;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.workoutShuffle.entity.ExerciseEntity;
-import org.workoutShuffle.entity.scores.ExerciseArmScoreEntity;
 import org.workoutShuffle.entity.scores.ExerciseBackScoreEntity;
 import org.workoutShuffle.repository.scores.ExerciseBackScoreRepository;
 
@@ -17,7 +16,6 @@ public class ExerciseBackScoreService {
     private ExerciseBackScoreRepository exerciseBackScoreRepository;
 
 
-
     public List<ExerciseEntity> getBackExercisesForWorkout(double workoutBackGoal, Integer backExerciseCount) {
         List<ExerciseEntity> exerciseList = new ArrayList<>();
 
@@ -25,8 +23,9 @@ public class ExerciseBackScoreService {
     }
 
     public double getAverageScore(ExerciseBackScoreEntity exerciseBackScoreEntity) {
-        return (exerciseBackScoreEntity.getExerciseUpperTrapScore() + exerciseBackScoreEntity.getExerciseLowerTrapScore() + exerciseBackScoreEntity.getExerciseUpperLatScore() + exerciseBackScoreEntity.getExerciseLowerLatScore()) / 4;
+        return (exerciseBackScoreEntity.getExerciseUpperTrapScore() + exerciseBackScoreEntity.getExerciseLowerTrapScore() + exerciseBackScoreEntity.getExerciseUpperLatScore() + exerciseBackScoreEntity.getExerciseLowerLatScore());
     }
+
     public double getSumOfScore(ExerciseBackScoreEntity exerciseBackScoreEntity) {
         return (exerciseBackScoreEntity.getExerciseUpperTrapScore() + exerciseBackScoreEntity.getExerciseLowerTrapScore() + exerciseBackScoreEntity.getExerciseUpperLatScore() + exerciseBackScoreEntity.getExerciseLowerLatScore());
     }
@@ -34,7 +33,7 @@ public class ExerciseBackScoreService {
     public List<String> getAllExerciseShortNames() {
 
         List<String> allExercisesList = new ArrayList<>();
-        for ( ExerciseBackScoreEntity exercise : getExercises() ) {
+        for (ExerciseBackScoreEntity exercise : getExercises()) {
             allExercisesList.add(exercise.getExerciseShortName());
         }
         return allExercisesList;
