@@ -2,7 +2,7 @@ package org.workoutShuffle.repository.scores;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import org.workoutShuffle.entity.scores.ExerciseArmScoreEntity;
+import org.workoutShuffle.entity.scores.ArmScoreEntity;
 @Repository
-public interface ExerciseArmScoreRepository extends CrudRepository<ExerciseArmScoreEntity, String> {
+public interface ArmScoreRepository extends CrudRepository<ArmScoreEntity, String> {
 }
