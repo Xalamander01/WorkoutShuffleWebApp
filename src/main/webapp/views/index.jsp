@@ -29,11 +29,11 @@ Today I would like to train:<br>
 <form action = "submitWeeklyWorkoutPreferences">
 <label for="workoutsPerWeek">I would like to train </label>
 <select name="workoutsPerWeek" id="workoutsPerWeek">
-<option value="1">1</option>
 <option value="2">2</option>
 <option value="3">3</option>
 <option value="4">4</option>
 <option value="5">5</option>
+<option value="6">6</option>
 </select>
 times per week.<br>
 I would like to do something extremely different every single time I am in the gym:<br>

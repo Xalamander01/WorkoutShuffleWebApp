@@ -39,19 +39,7 @@ public class ExerciseService {
         return serviceNameAndObjectMap;
     }
 
-    public Map<String, String> getServiceNameAndGetterMap() {
-        Map<String, String> serviceNameAndGetterMap = new HashMap<String, String>();
-        serviceNameAndGetterMap.put(armScoreService.getClass().getName(), "getExerciseArmScore");
-        serviceNameAndGetterMap.put(shoulderScoreService.getClass().getName(), "getExerciseShoulderScore");
-        serviceNameAndGetterMap.put(chestScoreService.getClass().getName(), "getExerciseChestScore");
-        serviceNameAndGetterMap.put(backScoreService.getClass().getName(), "getExerciseBackScore");
-        serviceNameAndGetterMap.put(legScoreService.getClass().getName(), "getExerciseLegScore");
-        return serviceNameAndGetterMap;
-    }
-
-
-    public List<ExerciseEntity> getExercisesForMuscleGroup(double exerciseScoreGoal, Integer exerciseCountGoal, List<String> allExerciseShortNames, String serviceClassName, String entityName, String getScoreMethod) {
-        Map<String, String> serviceNameAndGetterMap = getServiceNameAndGetterMap();
+    public List<ExerciseEntity> getExercisesForMuscleGroup(double exerciseScoreGoal, Integer exerciseCountGoal, List<String> allExerciseShortNames, String serviceClassName, String entityName, String getScoreMethod, String getterMethod) {
         Map<String, Object> serviceNameAndServiceMap = getServiceNameAndServiceMap();
         List<ExerciseEntity> allExercises = getExercises();
         List<ExerciseEntity> exerciseListToReturn = new ArrayList<>();
@@ -80,20 +68,8 @@ public class ExerciseService {
             if (!exerciseListToReturn.contains(currentExercise)) {
                 exerciseListToReturn.add(currentExercise);
                 try {
-                    System.out.println("THIS LOOP REQUIRES THE FOLLOWING: \n" +
-                            serviceClassName + " (currently string method arg) " +
-                            getScoreMethod + " ( also currently string method arg) " +
-                            entityName + " ( also also currently string method arg) " +
-                            serviceNameAndGetterMap.get(serviceClassName) + " (currently string in map)" +
-                            serviceNameAndServiceMap.get(serviceClassName) + " (currently service in map) ");
 
-                    for ( Method methods : Class.forName(serviceClassName).getDeclaredMethods() ) {
-                        if (methods.toString().contains("get")) {
-                            System.out.println(methods.toString());
-                        }
-                    }
-
-                    Method entityMethod = Class.forName(serviceClassName).getDeclaredMethod(serviceNameAndGetterMap.get(serviceClassName), String.class);
+                    Method entityMethod = Class.forName(serviceClassName).getDeclaredMethod(getterMethod, String.class);
                     Object entity = entityMethod.invoke(serviceNameAndServiceMap.get(serviceClassName), currentExerciseShortName);
 
                     Method method = Class.forName(serviceClassName).getDeclaredMethod(getScoreMethod, Class.forName(entityName));
