@@ -38,7 +38,7 @@ public class ShoulderScoreService {
         }
         return allExercisesList;
     }
-
+    // =================== crud methods below ===================
     public List<ShoulderScoreEntity> getExercises() {
         List<ShoulderScoreEntity> exerciseShoulderScoreList = new ArrayList<>();
         for (ShoulderScoreEntity exercise : shoulderScoreRepository.findAll()) {

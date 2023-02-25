@@ -1,50 +1,54 @@
 package org.workoutShuffle.controller;
 
+import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.workoutShuffle.entity.ExerciseEntity;
-import org.workoutShuffle.entity.WorkoutEntity;
-import org.workoutShuffle.services.ExerciseService;
 import org.workoutShuffle.services.WorkoutService;
-import org.workoutShuffle.services.WorkoutSplitsService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
+@SessionAttributes("workoutsMap")
 public class WorkoutController {
 
     @Autowired
     WorkoutService workoutService;
 
-    @Autowired
-    WorkoutSplitsService workoutSplitsService;
-    @Autowired
-    ExerciseService exerciseService;
-
-    @GetMapping("/submitSingleWorkoutPreferences")
-    public ModelAndView processSingleUserPreference(@PathVariable("workoutType") String workoutType) {
-        ModelAndView modelAndView = new ModelAndView("workout_list");
+    @GetMapping("/singleWorkout")
+    public ModelAndView processSingleUserPreference(@PathParam("workoutType") String workoutType) {
+        ModelAndView modelAndView = new ModelAndView("weekly_workout_list");
         List<ExerciseEntity> exerciseList = workoutService.getExerciseList(workoutType);
-        WorkoutEntity workoutEntity = workoutService.getWorkout(workoutType);
-        modelAndView.addObject("workoutEntity", workoutEntity);
-        modelAndView.addObject("listSize", exerciseList.size());
+        modelAndView.addObject("workoutsPerWeek", 0);
+        modelAndView.addObject("repetitionTolerance", 0);
+        modelAndView.addObject("workoutType", workoutType);
         modelAndView.addObject("exerciseList", exerciseList);
         return modelAndView;
     }
 
-    @GetMapping("submitWeeklyWorkoutPreferences")
-    public ModelAndView processWeeklyUserPreference(@PathVariable("workoutsPerWeek") Integer workoutsPerWeek, @PathVariable("repetitionTolerance") Integer repetitionTolerance) {
-        ModelAndView modelAndView = new ModelAndView("workout_list");
-        String[] workoutTypes = workoutSplitsService.getWeeklyWorkouts(workoutsPerWeek, repetitionTolerance);
-        List<ExerciseEntity>[] exerciseListArray = new ArrayList[workoutsPerWeek];
-        for (int i = 0; i < workoutTypes.length; i++) {
-            exerciseListArray[i] = workoutService.getExerciseList(workoutTypes[i]);
-        }
-        modelAndView.addObject(exerciseListArray);
+    @GetMapping("/weeklyWorkouts")
+    public ModelAndView viewWeeklyWorkouts(HttpSession session, @PathParam("workoutsPerWeek") Integer workoutsPerWeek, @PathParam("repetitionTolerance") Integer repetitionTolerance, @PathParam("workoutDay") Integer workoutDay) {
+        ModelAndView modelAndView = new ModelAndView("weekly_workout_list");
+        Map<String, List<ExerciseEntity>> workoutsMap = workoutService.checkForWorkoutsMap(session, workoutsPerWeek, repetitionTolerance);
+        List<String> workoutTypes = new ArrayList<>(workoutsMap.keySet());
+        modelAndView.addObject("workoutsPerWeek", workoutsPerWeek);
+        modelAndView.addObject("repetitionTolerance", repetitionTolerance);
+        modelAndView.addObject("workoutTypes", workoutService.getWorkoutTypesForJSP(workoutTypes));
+        modelAndView.addObject("exerciseList", workoutsMap.get(workoutTypes.get((workoutDay - 1))));
+
+        return modelAndView;
+    }
+
+    @GetMapping("/refreshWorkout")
+    public ModelAndView getNewWorkout() {
+        ModelAndView modelAndView = new ModelAndView("weekly_workout_list");
+        // TO_DO implement this
         return modelAndView;
     }
 }

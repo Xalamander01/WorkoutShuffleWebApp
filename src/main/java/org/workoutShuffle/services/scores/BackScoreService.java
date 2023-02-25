@@ -15,13 +15,6 @@ public class BackScoreService {
     @Autowired
     private BackScoreRepository backScoreRepository;
 
-
-    public List<ExerciseEntity> getBackExercisesForWorkout(double workoutBackGoal, Integer backExerciseCount) {
-        List<ExerciseEntity> exerciseList = new ArrayList<>();
-
-        return exerciseList;
-    }
-
     public double getAverageScore(BackScoreEntity backScoreEntity) {
         return (backScoreEntity.getUpperTrapScore() + backScoreEntity.getLowerTrapScore() + backScoreEntity.getUpperLatScore() + backScoreEntity.getLowerLatScore());
     }
@@ -39,6 +32,7 @@ public class BackScoreService {
         return allExercisesList;
     }
 
+    // =================== crud methods below ===================
     public List<BackScoreEntity> getExercises() {
         List<BackScoreEntity> exerciseBackScoreList = new ArrayList<>();
         for (BackScoreEntity exercise : backScoreRepository.findAll()) {

@@ -15,16 +15,6 @@ public class ArmScoreService {
     @Autowired
     private ArmScoreRepository armScoreRepository;
 
-
-    public List<String> getColumnNames() {
-        List<String> columnNames = new ArrayList<>();
-        Field[] members = ArmScoreEntity.class.getDeclaredFields();
-        for (Field member : members) {
-            columnNames.add(member.getName());
-        }
-        return columnNames;
-    }
-
     public double getPushScore(ArmScoreEntity exerciseArmScore) {
         return (exerciseArmScore.getLatTriScore() + exerciseArmScore.getMedTriScore() + exerciseArmScore.getLongTriScore()) / 3;
     }
@@ -42,6 +32,7 @@ public class ArmScoreService {
         return allExercisesList;
     }
 
+    // =================== crud methods below ===================
     public List<ArmScoreEntity> getExercises() {
         List<ArmScoreEntity> exerciseArmScoreList = new ArrayList<>();
         for (ArmScoreEntity exercise : armScoreRepository.findAll()) {

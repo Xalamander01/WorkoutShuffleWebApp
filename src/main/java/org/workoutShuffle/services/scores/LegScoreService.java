@@ -15,12 +15,6 @@ public class LegScoreService {
     @Autowired
     private LegScoreRepository legScoreRepository;
 
-    public List<ExerciseEntity> getLegExercisesForWorkout(double workoutLegsGoal, Integer legsExerciseCount) {
-        List<ExerciseEntity> exerciseList = new ArrayList<>();
-
-        return exerciseList;
-    }
-
     public double getPushScore(LegScoreEntity legScoreEntity) {
         return legScoreEntity.getUpperQuadScore()+ legScoreEntity.getLowerQuadScore()+ legScoreEntity.getCalfScore();
     }
@@ -36,13 +30,8 @@ public class LegScoreService {
         }
         return allExercisesList;
     }
-    public double getAverageScore(LegScoreEntity legScoreEntity) {
-        return (legScoreEntity.getGluteMaxScore()+ legScoreEntity.getGluteMedScore()+ legScoreEntity.getHamstringScore()+ legScoreEntity.getUpperQuadScore()+ legScoreEntity.getLowerQuadScore()+ legScoreEntity.getCalfScore())/6;
-    }
-    public double getSumOfScore(LegScoreEntity legScoreEntity) {
-        return (legScoreEntity.getGluteMaxScore()+ legScoreEntity.getGluteMedScore()+ legScoreEntity.getHamstringScore()+ legScoreEntity.getUpperQuadScore()+ legScoreEntity.getLowerQuadScore()+ legScoreEntity.getCalfScore());
-    }
 
+    // =================== crud methods below ===================
     public List<LegScoreEntity> getExercises() {
         List<LegScoreEntity> exerciseLegScoreList = new ArrayList<>();
         for (LegScoreEntity exercise : legScoreRepository.findAll()) {

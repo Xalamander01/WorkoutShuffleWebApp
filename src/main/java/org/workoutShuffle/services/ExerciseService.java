@@ -30,7 +30,7 @@ public class ExerciseService {
     private LegScoreService legScoreService;
 
     public Map<String, Object> getServiceNameAndServiceMap() {
-        Map<String, Object> serviceNameAndObjectMap = new HashMap<String, Object>();
+        Map<String, Object> serviceNameAndObjectMap = new HashMap<>();
         serviceNameAndObjectMap.put(armScoreService.getClass().getName(), armScoreService);
         serviceNameAndObjectMap.put(shoulderScoreService.getClass().getName(), shoulderScoreService);
         serviceNameAndObjectMap.put(chestScoreService.getClass().getName(), chestScoreService);
@@ -74,13 +74,7 @@ public class ExerciseService {
 
                     Method method = Class.forName(serviceClassName).getDeclaredMethod(getScoreMethod, Class.forName(entityName));
                     scoreToAdd = (double) method.invoke(serviceNameAndServiceMap.get(serviceClassName), entity);
-                } catch (NoSuchMethodException e) {
-                    throw new RuntimeException(e);
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                } catch (InvocationTargetException e) {
-                    throw new RuntimeException(e);
-                } catch (IllegalAccessException e) {
+                } catch (NoSuchMethodException | ClassNotFoundException | InvocationTargetException | IllegalAccessException e) {
                     throw new RuntimeException(e);
                 }
                 scoreSoFar = sum(scoreSoFar, scoreToAdd);
@@ -106,7 +100,7 @@ public class ExerciseService {
         return allExercisesList;
     }
 
-
+    // =================== crud methods below ===================
     public List<ExerciseEntity> getExercises() {
         List<ExerciseEntity> exerciseList = new ArrayList<>();
         for (ExerciseEntity exercise : exerciseRepository.findAll()) {

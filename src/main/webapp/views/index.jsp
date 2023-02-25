@@ -9,8 +9,8 @@
 <body>
 <h1>This is the index page</h1>
 <hr>
-<b>Get a single sample workout</b>
-<form action = "submitSingleWorkoutPreferences">
+<b>Get a single workout</b>
+<form action = "singleWorkout">
 Today I would like to train:<br>
 <input type="radio" id="push" name="workoutType" value="push">
 <label for="push">Push</label><br>
@@ -26,7 +26,7 @@ Today I would like to train:<br>
 </form>
 <hr>
 <b>Get a weekly training split</b>
-<form action = "submitWeeklyWorkoutPreferences">
+<form action = "weeklyWorkouts">
 <label for="workoutsPerWeek">I would like to train </label>
 <select name="workoutsPerWeek" id="workoutsPerWeek">
 <option value="2">2</option>
@@ -47,6 +47,7 @@ I would like to do something extremely different every single time I am in the g
 <label for="2">Agree</label>
 <input type="radio" id="1" name="repetitionTolerance" value="1">
 <label for="1">Strongly agree</label><br>
+<input type="hidden" id="workoutDay" name="workoutDay" value="1" />
 <input type="submit" value="Submit">
 </form>
 <hr>

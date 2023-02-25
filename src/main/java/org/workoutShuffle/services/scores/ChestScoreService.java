@@ -15,12 +15,6 @@ public class ChestScoreService {
     @Autowired
     private ChestScoreRepository chestScoreRepository;
 
-    public List<ExerciseEntity> getChestExercisesForWorkout(double workoutChestGoal, Integer chestExerciseCount) {
-        List<ExerciseEntity> exerciseList = new ArrayList<>();
-
-        return exerciseList;
-    }
-
     public double getAverageScore(ChestScoreEntity chestScoreEntity) {
         return (chestScoreEntity.getUpperPecScore()+ chestScoreEntity.getMiddlePecScore()+ chestScoreEntity.getLowerPecScore())/3;
     }
@@ -37,6 +31,7 @@ public class ChestScoreService {
         return allExercisesList;
     }
 
+    // =================== crud methods below ===================
     public List<ChestScoreEntity> getExercises() {
         List<ChestScoreEntity> exerciseChestScoreList = new ArrayList<>();
         for (ChestScoreEntity exercise : chestScoreRepository.findAll()) {
