@@ -7,6 +7,7 @@ import org.workoutShuffle.repository.WorkoutSplitsRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -22,6 +23,32 @@ public class WorkoutSplitsService {
         return listToReturn;
     }
 
+    /* check if the user-submitted workout preferences for repetition are fulfilled
+    * simply put - check if the workout types in the split are varied enough
+    */
+    public boolean compareWorkoutCountAndRepTolerance(List<String> workoutTypesList, Integer repetitionTolerance) {
+
+        boolean condition = false;
+        List<WorkoutSplitsEntity> allWorkoutTypes = getWorkoutSplits();
+        List<String> allWeeklyWorkoutTypes = new ArrayList<>();
+
+        for (WorkoutSplitsEntity workoutSplit : allWorkoutTypes) {
+            allWeeklyWorkoutTypes.add(workoutSplit.getTypesOfWorkouts());
+        }
+
+        HashSet<String> uniqueWords = new HashSet<>(workoutTypesList);
+        List<String> uniqWorkoutTypesList = new ArrayList<>();
+        uniqWorkoutTypesList.addAll(uniqueWords);
+
+        if ((workoutTypesList.size() - uniqWorkoutTypesList.size()) <= (repetitionTolerance+1)) {
+            condition = true;
+        }
+
+        return condition;
+    }
+
+    /* get the desired weekly workout types according to the user-submitted preferences
+     */
     public List<String> getWeeklyWorkoutTypes(Integer workoutsPerWeek, Integer repetitionTolerance) {
 
         List<WorkoutSplitsEntity> allWorkoutTypes = getWorkoutSplits();
@@ -31,7 +58,7 @@ public class WorkoutSplitsService {
             if (workoutSplits.getWorkoutsPerWeek().equals(workoutsPerWeek)) {
                 String workoutTypesInWorkout = workoutSplits.getTypesOfWorkouts();
                 List<String> workoutTypesList = List.of(workoutTypesInWorkout.split(","));
-                if (workoutTypesList.size() <= repetitionTolerance) {
+                if (compareWorkoutCountAndRepTolerance(workoutTypesList, repetitionTolerance)) {
                     possibleWorkoutTypes.add(workoutSplits);
                 }
             }

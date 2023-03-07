@@ -22,6 +22,10 @@ public class UserService {
         return userList;
     }
 
+    /* a login system will be implemented eventually and it will keep track of user preferences
+       and suggest variations to break habits
+     */
+
     public UserEntity getUser(Integer userId) {
         return userRepository.findById(userId).get();
     }

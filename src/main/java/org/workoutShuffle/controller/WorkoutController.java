@@ -21,6 +21,7 @@ public class WorkoutController {
     @Autowired
     WorkoutService workoutService;
 
+    /* generate a single workout if that is what the user has chosen */
     @GetMapping("/singleWorkout")
     public ModelAndView processSingleUserPreference(@PathParam("workoutType") String workoutType) {
         ModelAndView modelAndView = new ModelAndView("weekly_workout_list");
@@ -32,6 +33,7 @@ public class WorkoutController {
         return modelAndView;
     }
 
+    /* generate a weekly workout split according to the users preferences */
     @GetMapping("/weeklyWorkouts")
     public ModelAndView viewWeeklyWorkouts(HttpSession session, @PathParam("workoutsPerWeek") Integer workoutsPerWeek, @PathParam("repetitionTolerance") Integer repetitionTolerance, @PathParam("workoutDay") Integer workoutDay) {
         ModelAndView modelAndView = new ModelAndView("weekly_workout_list");
@@ -45,6 +47,7 @@ public class WorkoutController {
         return modelAndView;
     }
 
+    /* regenerate a workout, this does not work yet */
     @GetMapping("/refreshWorkout")
     public ModelAndView getNewWorkout() {
         ModelAndView modelAndView = new ModelAndView("weekly_workout_list");

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.workoutShuffle.entity.ExerciseEntity;
 import org.workoutShuffle.entity.WorkoutEntity;
 import org.workoutShuffle.repository.WorkoutRepository;
+import org.workoutShuffle.repository.WorkoutSplitsRepository;
 import org.workoutShuffle.services.scores.*;
 
 import java.util.ArrayList;
@@ -32,8 +33,14 @@ public class WorkoutService {
     private BackScoreService backScoreService;
     @Autowired
     private LegScoreService legScoreService;
+    @Autowired
+    private WorkoutSplitsRepository workoutSplitsRepository;
 
 
+    /* check if workouts map has been generated this session
+       do not regenerate if it has been generated
+       workouts map will be regenerated every time the page is refreshed if this step is skipped
+     */
     public Map<String, List<ExerciseEntity>> checkForWorkoutsMap(HttpSession session, Integer workoutsPerWeek, Integer repetitionTolerance) {
         boolean foundWorkoutList = false;
         Map<String, List<ExerciseEntity>> workoutsMap = new HashMap<>();
@@ -55,18 +62,24 @@ public class WorkoutService {
         return workoutsMap;
     }
 
+    /* generate a workout type string to exercises map
+       if multiple workouts of the same type are needed, then change the key a bit
+       this solution is not very elegant but it works for now */
     public Map<String, List<ExerciseEntity>> getWeeklyWorkoutsMap(Integer workoutsPerWeek, Integer repetitionTolerance) {
         Map<String, List<ExerciseEntity>> workoutsMap = new HashMap<>();
         List<String> workoutTypes = workoutSplitsService.getWeeklyWorkoutTypes(workoutsPerWeek, repetitionTolerance);
         for (String currentKey : workoutTypes) {
+            String keyPreEdit = currentKey;
             while (workoutsMap.containsKey(currentKey)) {
                 currentKey = currentKey + "a";
             }
-            workoutsMap.put(currentKey, getExerciseList(currentKey));
+            workoutsMap.put(currentKey, getExerciseList(keyPreEdit));
         }
         return workoutsMap;
     }
 
+    /* transform workout type string to a string that is more pleasant to read
+    * e.g. fullBody -> Full Body */
     public List<String> getWorkoutTypesForJSP(List<String> workoutTypes) {
 
         List<String> workoutTypesToReturn = new ArrayList<>();
@@ -89,8 +102,10 @@ public class WorkoutService {
         return workoutTypesToReturn;
     }
 
+    /* generate a list of exercises ( a single workout ) of the required type */
     public List<ExerciseEntity> getExerciseList(String workoutType) {
         List<ExerciseEntity> exerciseList = new ArrayList<>();
+        System.out.println("WORKOUT TYPE IS " + workoutType);
         WorkoutEntity workoutEntity = this.getWorkout(workoutType);
 
         exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutLegsPushGoal(), workoutEntity.getLegsPushExerciseCount(), legScoreService.getAllExerciseShortNames(), legScoreService.getClass().getName(), "org.workoutShuffle.entity.scores.LegScoreEntity", "getPushScore", "getExerciseLegScore"));

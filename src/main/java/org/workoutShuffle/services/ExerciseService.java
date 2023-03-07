@@ -29,6 +29,9 @@ public class ExerciseService {
     @Autowired
     private LegScoreService legScoreService;
 
+    /*
+        return the service object based on class name
+     */
     public Map<String, Object> getServiceNameAndServiceMap() {
         Map<String, Object> serviceNameAndObjectMap = new HashMap<>();
         serviceNameAndObjectMap.put(armScoreService.getClass().getName(), armScoreService);
@@ -39,6 +42,10 @@ public class ExerciseService {
         return serviceNameAndObjectMap;
     }
 
+    /*
+        generate a list of exercises for each muscle group
+        the selected exercises must satisfy the scoring criteria
+     */
     public List<ExerciseEntity> getExercisesForMuscleGroup(double exerciseScoreGoal, Integer exerciseCountGoal, List<String> allExerciseShortNames, String serviceClassName, String entityName, String getScoreMethod, String getterMethod) {
         Map<String, Object> serviceNameAndServiceMap = getServiceNameAndServiceMap();
         List<ExerciseEntity> allExercises = getExercises();
@@ -46,14 +53,12 @@ public class ExerciseService {
 
         double scoreSoFar = 0;
         double scoreToAdd;
-        //System.out.println("STARTING TO GET EXERCISES WITH SERVICE " + serviceClassName);
 
         while ((exerciseListToReturn.size() < exerciseCountGoal) || (scoreSoFar < exerciseScoreGoal)) {
 
             if (exerciseListToReturn.size() == exerciseCountGoal && scoreSoFar < exerciseScoreGoal) {
                 exerciseListToReturn = new ArrayList<>();
                 scoreSoFar = 0;
-                //System.out.println("STARTING OVER....");
             }
             int randomInt = (int) Math.floor(Math.random() * (allExerciseShortNames.size()));
             String currentExerciseShortName = allExerciseShortNames.get(randomInt);
@@ -80,24 +85,8 @@ public class ExerciseService {
                 scoreSoFar = sum(scoreSoFar, scoreToAdd);
             }
         }
-        /*
-        System.out.println("THE GOAL HAS BEEN REACHED BECAUSE WE GOT " + scoreSoFar + " SO FAR AND THE GOAL IS " + exerciseScoreGoal + " WITH ");
-        for (ExerciseEntity exercise : exerciseListToReturn) {
-            System.out.println(exercise.toString());
-        }
-         */
 
         return exerciseListToReturn;
-    }
-
-
-    public List<String> getAllExerciseShortNames() {
-
-        List<String> allExercisesList = new ArrayList<>();
-        for (ExerciseEntity exercise : getExercises()) {
-            allExercisesList.add(exercise.getExerciseShortName());
-        }
-        return allExercisesList;
     }
 
     // =================== crud methods below ===================
