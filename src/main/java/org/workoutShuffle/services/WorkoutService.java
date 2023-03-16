@@ -105,7 +105,6 @@ public class WorkoutService {
     /* generate a list of exercises ( a single workout ) of the required type */
     public List<ExerciseEntity> getExerciseList(String workoutType) {
         List<ExerciseEntity> exerciseList = new ArrayList<>();
-        System.out.println("WORKOUT TYPE IS " + workoutType);
         WorkoutEntity workoutEntity = this.getWorkout(workoutType);
 
         exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutLegsPushGoal(), workoutEntity.getLegsPushExerciseCount(), legScoreService.getAllExerciseShortNames(), legScoreService.getClass().getName(), "org.workoutShuffle.entity.scores.LegScoreEntity", "getPushScore", "getExerciseLegScore"));

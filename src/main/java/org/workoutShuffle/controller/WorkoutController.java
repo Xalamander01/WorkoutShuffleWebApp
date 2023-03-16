@@ -3,34 +3,41 @@ package org.workoutShuffle.controller;
 import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.workoutShuffle.entity.ExerciseEntity;
+import org.workoutShuffle.services.ExerciseService;
 import org.workoutShuffle.services.WorkoutService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @SessionAttributes("workoutsMap")
 public class WorkoutController {
 
     @Autowired
     WorkoutService workoutService;
+    @Autowired
+    ExerciseService exerciseService;
 
     /* generate a single workout if that is what the user has chosen */
-    @GetMapping("/singleWorkout")
-    public ModelAndView processSingleUserPreference(@PathParam("workoutType") String workoutType) {
-        ModelAndView modelAndView = new ModelAndView("weekly_workout_list");
-        List<ExerciseEntity> exerciseList = workoutService.getExerciseList(workoutType);
-        modelAndView.addObject("workoutsPerWeek", 0);
-        modelAndView.addObject("repetitionTolerance", 0);
-        modelAndView.addObject("workoutType", workoutType);
-        modelAndView.addObject("exerciseList", exerciseList);
-        return modelAndView;
+    @GetMapping("/singleWorkout/{workoutType}")
+    public List<ExerciseEntity> processSingleUserPreference(@PathVariable("workoutType") String workoutType) {
+        List<ExerciseEntity> exerciseList = null;
+        if ( workoutType != null ) {
+            exerciseList = workoutService.getExerciseList(workoutType);
+        }
+        return exerciseList;
+    }
+
+    @GetMapping("/allExercises")
+    public List<ExerciseEntity> getAllExercises() {
+        return exerciseService.getExercises();
     }
 
     /* generate a weekly workout split according to the users preferences */

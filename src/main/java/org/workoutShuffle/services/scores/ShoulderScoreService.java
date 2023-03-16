@@ -14,6 +14,7 @@ public class ShoulderScoreService {
     @Autowired
     private ShoulderScoreRepository shoulderScoreRepository;
 
+    //methods to get the exercise score, depending on user preferences
     public double getPushScore(ShoulderScoreEntity shoulderScoreEntity) {
         return shoulderScoreEntity.getFrontShoulderScore();
     }
@@ -30,6 +31,7 @@ public class ShoulderScoreService {
         return (shoulderScoreEntity.getFrontShoulderScore() + shoulderScoreEntity.getRearShoulderScore() + shoulderScoreEntity.getSideShoulderScore());
     }
 
+    //method to get the short names (id) of all exercises of this group
     public List<String> getAllExerciseShortNames() {
 
         List<String> allExercisesList = new ArrayList<>();

@@ -15,6 +15,7 @@ public class ChestScoreService {
     @Autowired
     private ChestScoreRepository chestScoreRepository;
 
+    //methods to get the exercise score, depending on user preferences
     public double getAverageScore(ChestScoreEntity chestScoreEntity) {
         return (chestScoreEntity.getUpperPecScore()+ chestScoreEntity.getMiddlePecScore()+ chestScoreEntity.getLowerPecScore())/3;
     }
@@ -22,6 +23,7 @@ public class ChestScoreService {
         return (chestScoreEntity.getUpperPecScore()+ chestScoreEntity.getMiddlePecScore()+ chestScoreEntity.getLowerPecScore());
     }
 
+    //method to get the short names (id) of all exercises of this group
     public List<String> getAllExerciseShortNames() {
 
         List<String> allExercisesList = new ArrayList<>();
