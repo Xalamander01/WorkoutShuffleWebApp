@@ -15,6 +15,7 @@ public class ArmScoreService {
     @Autowired
     private ArmScoreRepository armScoreRepository;
 
+    //methods to get the exercise score, depending on user preferences
     public double getPushScore(ArmScoreEntity exerciseArmScore) {
         return (exerciseArmScore.getLatTriScore() + exerciseArmScore.getMedTriScore() + exerciseArmScore.getLongTriScore()) / 3;
     }
@@ -23,6 +24,7 @@ public class ArmScoreService {
         return (exerciseArmScore.getInnerBiScore() + exerciseArmScore.getOuterBiScore()) / 2;
     }
 
+    //method to get the short names (id) of all exercises of this group
     public List<String> getAllExerciseShortNames() {
 
         List<String> allExercisesList = new ArrayList<>();

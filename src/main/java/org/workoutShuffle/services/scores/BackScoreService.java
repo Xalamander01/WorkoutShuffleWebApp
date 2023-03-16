@@ -2,7 +2,6 @@ package org.workoutShuffle.services.scores;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.workoutShuffle.entity.ExerciseEntity;
 import org.workoutShuffle.entity.scores.BackScoreEntity;
 import org.workoutShuffle.repository.scores.BackScoreRepository;
 
@@ -15,6 +14,8 @@ public class BackScoreService {
     @Autowired
     private BackScoreRepository backScoreRepository;
 
+
+    //methods to get the exercise score, depending on user preferences
     public double getAverageScore(BackScoreEntity backScoreEntity) {
         return (backScoreEntity.getUpperTrapScore() + backScoreEntity.getLowerTrapScore() + backScoreEntity.getUpperLatScore() + backScoreEntity.getLowerLatScore());
     }
@@ -23,6 +24,7 @@ public class BackScoreService {
         return (backScoreEntity.getUpperTrapScore() + backScoreEntity.getLowerTrapScore() + backScoreEntity.getUpperLatScore() + backScoreEntity.getLowerLatScore());
     }
 
+    //method to get the short names (id) of all exercises of this group
     public List<String> getAllExerciseShortNames() {
 
         List<String> allExercisesList = new ArrayList<>();
