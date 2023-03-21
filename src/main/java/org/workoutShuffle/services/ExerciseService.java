@@ -46,7 +46,7 @@ public class ExerciseService {
         generate a list of exercises for each muscle group
         the selected exercises must satisfy the scoring criteria
      */
-    public List<ExerciseEntity> getExercisesForMuscleGroup(double exerciseScoreGoal, Integer exerciseCountGoal, List<String> allExerciseShortNames, String serviceClassName, String entityName, String getScoreMethod, String getterMethod) {
+    public List<ExerciseEntity> getExercisesForMuscleGroup(double exerciseScoreGoal, Integer exerciseCountGoal, List<String> allExerciseShortNames, String serviceClassName, String entityName, String getScoreMethod, String getterMethod, List<ExerciseEntity> alreadyExercised) {
         Map<String, Object> serviceNameAndServiceMap = getServiceNameAndServiceMap();
         List<ExerciseEntity> allExercises = getExercises();
         List<ExerciseEntity> exerciseListToReturn = new ArrayList<>();
@@ -70,7 +70,7 @@ public class ExerciseService {
                 }
             }
 
-            if (!exerciseListToReturn.contains(currentExercise)) {
+            if (!exerciseListToReturn.contains(currentExercise) && !alreadyExercised.contains(currentExercise)) {
                 exerciseListToReturn.add(currentExercise);
                 try {
 

@@ -1,0 +1,14 @@
+.exercise {
+}
+
+.exerciseShortName {
+    font-size:x-large;
+}
+
+.exerciseLongName {
+    font-weight:bold;
+}
+
+.exerciseDescription {
+    font-style:italic;
+}

@@ -44,6 +44,8 @@ public class WorkoutService {
     public Map<String, List<ExerciseEntity>> checkForWorkoutsMap(HttpSession session, Integer workoutsPerWeek, Integer repetitionTolerance) {
         boolean foundWorkoutList = false;
         Map<String, List<ExerciseEntity>> workoutsMap = new HashMap<>();
+        List<ExerciseEntity> alreadyExercised = new ArrayList<>();
+
         while (session.getAttributeNames().hasMoreElements()) {
             if (session.getAttributeNames().nextElement().equals("workoutsMap")) {
                 foundWorkoutList = true;
@@ -53,10 +55,14 @@ public class WorkoutService {
 
         if (foundWorkoutList) {
             workoutsMap = (Map<String, List<ExerciseEntity>>) session.getAttribute("workoutsMap");
+            alreadyExercised = (List<ExerciseEntity>) session.getAttribute("alreadyExercised");
         }
         if (!foundWorkoutList || (foundWorkoutList && workoutsPerWeek != workoutsMap.keySet().size())) {
-            workoutsMap = getWeeklyWorkoutsMap(workoutsPerWeek, repetitionTolerance);
+            Object[] temp = getWeeklyWorkoutsMap(workoutsPerWeek, repetitionTolerance, alreadyExercised);
+            workoutsMap = (Map<String, List<ExerciseEntity>>) temp[0];
+            alreadyExercised = (List<ExerciseEntity>) temp[1];
             session.setAttribute("workoutsMap", workoutsMap);
+            session.setAttribute("alreadyExercised", alreadyExercised);
             session.setMaxInactiveInterval(1800);
         }
         return workoutsMap;
@@ -65,58 +71,57 @@ public class WorkoutService {
     /* generate a workout type string to exercises map
        if multiple workouts of the same type are needed, then change the key a bit
        this solution is not very elegant but it works for now */
-    public Map<String, List<ExerciseEntity>> getWeeklyWorkoutsMap(Integer workoutsPerWeek, Integer repetitionTolerance) {
+    public Object[] getWeeklyWorkoutsMap(Integer workoutsPerWeek, Integer repetitionTolerance, List<ExerciseEntity> alreadyExercised) {
         Map<String, List<ExerciseEntity>> workoutsMap = new HashMap<>();
+        List<ExerciseEntity> addToAlreadyExercised;
+        List<ExerciseEntity> addToWorkoutsMap;
         List<String> workoutTypes = workoutSplitsService.getWeeklyWorkoutTypes(workoutsPerWeek, repetitionTolerance);
         for (String currentKey : workoutTypes) {
             String keyPreEdit = currentKey;
             while (workoutsMap.containsKey(currentKey)) {
                 currentKey = currentKey + "a";
             }
-            workoutsMap.put(currentKey, getExerciseList(keyPreEdit));
+            Object[] temp = getExerciseList(keyPreEdit, alreadyExercised);
+            addToWorkoutsMap = (List<ExerciseEntity>) temp[0];
+            addToAlreadyExercised = (List<ExerciseEntity>) temp[1];
+            alreadyExercised.addAll(addToAlreadyExercised);
+            workoutsMap.put(currentKey, addToWorkoutsMap);
         }
-        return workoutsMap;
-    }
-
-    /* transform workout type string to a string that is more pleasant to read
-    * e.g. fullBody -> Full Body */
-    public List<String> getWorkoutTypesForJSP(List<String> workoutTypes) {
-
-        List<String> workoutTypesToReturn = new ArrayList<>();
-        for (String workoutType : workoutTypes ){
-            while (workoutType.endsWith("a")) {
-                workoutType = workoutType.substring(0,workoutType.length()-1);
-            }
-            int stringLength = workoutType.length();
-            for ( int i=0; i<stringLength; i++) {
-                if ( i == 0 ) {
-                    workoutType = workoutType.substring(i,1).toUpperCase() + workoutType.substring(1);
-                } else if ( Character.isUpperCase(workoutType.charAt(i))) {
-                    workoutType = workoutType.substring(0,i) + " " + workoutType.substring(i);
-                    i++;
-                }
-                stringLength = workoutType.length();
-            }
-            workoutTypesToReturn.add(workoutType);
-        }
-        return workoutTypesToReturn;
+        return new Object[]{workoutsMap, alreadyExercised};
     }
 
     /* generate a list of exercises ( a single workout ) of the required type */
-    public List<ExerciseEntity> getExerciseList(String workoutType) {
+    public Object[] getExerciseList(String workoutType, List<ExerciseEntity> alreadyExercised) {
         List<ExerciseEntity> exerciseList = new ArrayList<>();
         WorkoutEntity workoutEntity = this.getWorkout(workoutType);
 
-        exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutLegsPushGoal(), workoutEntity.getLegsPushExerciseCount(), legScoreService.getAllExerciseShortNames(), legScoreService.getClass().getName(), "org.workoutShuffle.entity.scores.LegScoreEntity", "getPushScore", "getExerciseLegScore"));
-        exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutLegsPullGoal(), workoutEntity.getLegsPullExerciseCount(), legScoreService.getAllExerciseShortNames(), legScoreService.getClass().getName(), "org.workoutShuffle.entity.scores.LegScoreEntity", "getPullScore", "getExerciseLegScore"));
-        exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutBackGoal(), workoutEntity.getBackExerciseCount(), backScoreService.getAllExerciseShortNames(), backScoreService.getClass().getName(), "org.workoutShuffle.entity.scores.BackScoreEntity", "getAverageScore", "getExerciseBackScore"));
-        exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutChestGoal(), workoutEntity.getChestExerciseCount(), chestScoreService.getAllExerciseShortNames(), chestScoreService.getClass().getName(), "org.workoutShuffle.entity.scores.ChestScoreEntity", "getAverageScore", "getExerciseChestScore"));
-        exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutShoulderPushGoal(), workoutEntity.getShoulderPushExerciseCount(), shoulderScoreService.getAllExerciseShortNames(), shoulderScoreService.getClass().getName(), "org.workoutShuffle.entity.scores.ShoulderScoreEntity", "getPushScore", "getExerciseShoulderScore"));
-        exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutShoulderPullGoal(), workoutEntity.getShoulderPullExerciseCount(), shoulderScoreService.getAllExerciseShortNames(), shoulderScoreService.getClass().getName(), "org.workoutShuffle.entity.scores.ShoulderScoreEntity", "getPullScore", "getExerciseShoulderScore"));
-        exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutArmPushGoal(), workoutEntity.getArmPushExerciseCount(), armScoreService.getAllExerciseShortNames(), armScoreService.getClass().getName(), "org.workoutShuffle.entity.scores.ArmScoreEntity", "getPushScore", "getExerciseArmScore"));
-        exerciseList.addAll(exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutArmPullGoal(), workoutEntity.getArmPullExerciseCount(), armScoreService.getAllExerciseShortNames(), armScoreService.getClass().getName(), "org.workoutShuffle.entity.scores.ArmScoreEntity", "getPullScore", "getExerciseArmScore"));
+        List<ExerciseEntity> legsPushExercises = exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutLegsPushGoal(), workoutEntity.getLegsPushExerciseCount(), legScoreService.getAllExerciseShortNames(), legScoreService.getClass().getName(), "org.workoutShuffle.entity.scores.LegScoreEntity", "getPushScore", "getExerciseLegScore", alreadyExercised);
+        alreadyExercised.addAll(legsPushExercises);
+        List<ExerciseEntity> legsPullExercises = exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutLegsPullGoal(), workoutEntity.getLegsPullExerciseCount(), legScoreService.getAllExerciseShortNames(), legScoreService.getClass().getName(), "org.workoutShuffle.entity.scores.LegScoreEntity", "getPullScore", "getExerciseLegScore", alreadyExercised);
+        alreadyExercised.addAll(legsPullExercises);
+        List<ExerciseEntity> chestExercises = exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutChestGoal(), workoutEntity.getChestExerciseCount(), chestScoreService.getAllExerciseShortNames(), chestScoreService.getClass().getName(), "org.workoutShuffle.entity.scores.ChestScoreEntity", "getAverageScore", "getExerciseChestScore", alreadyExercised);
+        alreadyExercised.addAll(chestExercises);
+        List<ExerciseEntity> backExercises = exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutBackGoal(), workoutEntity.getBackExerciseCount(), backScoreService.getAllExerciseShortNames(), backScoreService.getClass().getName(), "org.workoutShuffle.entity.scores.BackScoreEntity", "getAverageScore", "getExerciseBackScore", alreadyExercised);
+        alreadyExercised.addAll(backExercises);
+        List<ExerciseEntity> shoulderPushExercises = exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutShoulderPushGoal(), workoutEntity.getShoulderPushExerciseCount(), shoulderScoreService.getAllExerciseShortNames(), shoulderScoreService.getClass().getName(), "org.workoutShuffle.entity.scores.ShoulderScoreEntity", "getPushScore", "getExerciseShoulderScore", alreadyExercised);
+        alreadyExercised.addAll(shoulderPushExercises);
+        List<ExerciseEntity> shoulderPullExercises = exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutShoulderPullGoal(), workoutEntity.getShoulderPullExerciseCount(), shoulderScoreService.getAllExerciseShortNames(), shoulderScoreService.getClass().getName(), "org.workoutShuffle.entity.scores.ShoulderScoreEntity", "getPullScore", "getExerciseShoulderScore", alreadyExercised);
+        alreadyExercised.addAll(shoulderPullExercises);
+        List<ExerciseEntity> armPushExercises = exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutArmPushGoal(), workoutEntity.getArmPushExerciseCount(), armScoreService.getAllExerciseShortNames(), armScoreService.getClass().getName(), "org.workoutShuffle.entity.scores.ArmScoreEntity", "getPushScore", "getExerciseArmScore", alreadyExercised);
+        alreadyExercised.addAll(armPushExercises);
+        List<ExerciseEntity> armPullExercises = exerciseService.getExercisesForMuscleGroup(workoutEntity.getWorkoutArmPullGoal(), workoutEntity.getArmPullExerciseCount(), armScoreService.getAllExerciseShortNames(), armScoreService.getClass().getName(), "org.workoutShuffle.entity.scores.ArmScoreEntity", "getPullScore", "getExerciseArmScore", alreadyExercised);
+        alreadyExercised.addAll(armPullExercises);
 
-        return exerciseList;
+        exerciseList.addAll(legsPushExercises);
+        exerciseList.addAll(legsPullExercises);
+        exerciseList.addAll(chestExercises);
+        exerciseList.addAll(backExercises);
+        exerciseList.addAll(shoulderPushExercises);
+        exerciseList.addAll(shoulderPullExercises);
+        exerciseList.addAll(armPushExercises);
+        exerciseList.addAll(armPullExercises);
+
+        return new Object[]{exerciseList,alreadyExercised};
     }
 
     // =================== crud methods below ===================

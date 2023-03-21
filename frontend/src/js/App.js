@@ -9,8 +9,8 @@ import Login from './Login';
 
 export default function App() {
 
-    const [showWorkoutForm, setShowWorkoutForm] = React.useState(true)
-    const [showSplitForm, setShowSplitForm] = React.useState(false)
+    const [showWorkoutForm, setShowWorkoutForm] = React.useState(false)
+    const [showSplitForm, setShowSplitForm] = React.useState(true)
     const [showDatabase, setShowDatabase] = React.useState(false)
     const [showSearch, setShowSearch] = React.useState(false)
     const [showAbout, setShowAbout] = React.useState(false)
