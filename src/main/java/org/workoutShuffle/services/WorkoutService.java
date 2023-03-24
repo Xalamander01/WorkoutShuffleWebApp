@@ -4,15 +4,14 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.workoutShuffle.entity.ExerciseEntity;
+import org.workoutShuffle.entity.TypeAndWorkoutPair;
 import org.workoutShuffle.entity.WorkoutEntity;
 import org.workoutShuffle.repository.WorkoutRepository;
 import org.workoutShuffle.repository.WorkoutSplitsRepository;
 import org.workoutShuffle.services.scores.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class WorkoutService {
@@ -41,53 +40,49 @@ public class WorkoutService {
        do not regenerate if it has been generated
        workouts map will be regenerated every time the page is refreshed if this step is skipped
      */
-    public Map<String, List<ExerciseEntity>> checkForWorkoutsMap(HttpSession session, Integer workoutsPerWeek, Integer repetitionTolerance) {
+    public List<TypeAndWorkoutPair> checkForWorkoutsList(HttpSession session, Integer workoutsPerWeek, Integer repetitionTolerance) {
         boolean foundWorkoutList = false;
-        Map<String, List<ExerciseEntity>> workoutsMap = new HashMap<>();
+        List<TypeAndWorkoutPair> typeWorkoutPairList = new ArrayList<>();
         List<ExerciseEntity> alreadyExercised = new ArrayList<>();
 
         while (session.getAttributeNames().hasMoreElements()) {
-            if (session.getAttributeNames().nextElement().equals("workoutsMap")) {
+            if (session.getAttributeNames().nextElement().equals("typeWorkoutPairList")) {
                 foundWorkoutList = true;
                 break;
             }
         }
 
         if (foundWorkoutList) {
-            workoutsMap = (Map<String, List<ExerciseEntity>>) session.getAttribute("workoutsMap");
+            typeWorkoutPairList = (List<TypeAndWorkoutPair>) session.getAttribute("typeWorkoutPairList");
             alreadyExercised = (List<ExerciseEntity>) session.getAttribute("alreadyExercised");
         }
-        if (!foundWorkoutList || (foundWorkoutList && workoutsPerWeek != workoutsMap.keySet().size())) {
+        if (!foundWorkoutList || (foundWorkoutList && workoutsPerWeek != typeWorkoutPairList.size())) {
             Object[] temp = getWeeklyWorkoutsMap(workoutsPerWeek, repetitionTolerance, alreadyExercised);
-            workoutsMap = (Map<String, List<ExerciseEntity>>) temp[0];
+            typeWorkoutPairList = (List<TypeAndWorkoutPair>) temp[0];
             alreadyExercised = (List<ExerciseEntity>) temp[1];
-            session.setAttribute("workoutsMap", workoutsMap);
+            session.setAttribute("typeWorkoutPairList", typeWorkoutPairList);
             session.setAttribute("alreadyExercised", alreadyExercised);
             session.setMaxInactiveInterval(1800);
         }
-        return workoutsMap;
+        return typeWorkoutPairList;
     }
 
     /* generate a workout type string to exercises map
        if multiple workouts of the same type are needed, then change the key a bit
        this solution is not very elegant but it works for now */
     public Object[] getWeeklyWorkoutsMap(Integer workoutsPerWeek, Integer repetitionTolerance, List<ExerciseEntity> alreadyExercised) {
-        Map<String, List<ExerciseEntity>> workoutsMap = new HashMap<>();
+        ArrayList<TypeAndWorkoutPair> typeWorkoutPairList = new ArrayList<>();
         List<ExerciseEntity> addToAlreadyExercised;
         List<ExerciseEntity> addToWorkoutsMap;
         List<String> workoutTypes = workoutSplitsService.getWeeklyWorkoutTypes(workoutsPerWeek, repetitionTolerance);
         for (String currentKey : workoutTypes) {
-            String keyPreEdit = currentKey;
-            while (workoutsMap.containsKey(currentKey)) {
-                currentKey = currentKey + "a";
-            }
-            Object[] temp = getExerciseList(keyPreEdit, alreadyExercised);
+            Object[] temp = getExerciseList(currentKey, alreadyExercised);
             addToWorkoutsMap = (List<ExerciseEntity>) temp[0];
             addToAlreadyExercised = (List<ExerciseEntity>) temp[1];
             alreadyExercised.addAll(addToAlreadyExercised);
-            workoutsMap.put(currentKey, addToWorkoutsMap);
+            typeWorkoutPairList.add(new TypeAndWorkoutPair(currentKey,addToWorkoutsMap));
         }
-        return new Object[]{workoutsMap, alreadyExercised};
+        return new Object[]{typeWorkoutPairList, alreadyExercised};
     }
 
     /* generate a list of exercises ( a single workout ) of the required type */

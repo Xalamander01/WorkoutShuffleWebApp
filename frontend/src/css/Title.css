@@ -1,0 +1,29 @@
+.title {
+    display:flex;
+    justify-content:center;
+    font-size:80px;
+}
+
+.title > div {
+    display:flex;
+    justify-content:center;
+    font-family:crackman;
+}
+
+.title--workout {
+    justify-items:end;
+}
+
+.title--shuffle {
+    justify-items:start;
+}
+
+
+@media all and (max-width: 750px) {
+  .title {
+    flex-wrap: wrap;
+  }
+  .title > div {
+    flex: 1 1 50%;
+  }
+}

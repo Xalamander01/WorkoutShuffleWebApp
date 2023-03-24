@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.workoutShuffle.entity.ExerciseEntity;
+import org.workoutShuffle.entity.TypeAndWorkoutPair;
 import org.workoutShuffle.services.ExerciseService;
 import org.workoutShuffle.services.WorkoutService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @SessionAttributes("workoutsMap")
@@ -37,8 +37,8 @@ public class WorkoutController {
 
     /* generate a weekly workout split according to the users preferences */
     @GetMapping("/weeklyWorkouts/{workoutsPerWeek}/{repetitionTolerance}")
-    public Map<String, List<ExerciseEntity>> viewWeeklyWorkouts(HttpSession session, @PathVariable("workoutsPerWeek") Integer workoutsPerWeek, @PathVariable("repetitionTolerance") Integer repetitionTolerance) {
+    public List<TypeAndWorkoutPair> viewWeeklyWorkouts(HttpSession session, @PathVariable("workoutsPerWeek") Integer workoutsPerWeek, @PathVariable("repetitionTolerance") Integer repetitionTolerance) {
 
-        return workoutService.checkForWorkoutsMap(session, workoutsPerWeek, repetitionTolerance);
+        return workoutService.checkForWorkoutsList(session, workoutsPerWeek, repetitionTolerance);
     }
 }

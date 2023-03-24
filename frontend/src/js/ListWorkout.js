@@ -1,5 +1,6 @@
 import React from 'react';
 import Exercise from './Exercise';
+import '../css/ListWorkout.css';
 
 export default function ListWorkout(props) {
 
@@ -10,7 +11,7 @@ export default function ListWorkout(props) {
         )
 
     return (
-        <div>
+        <div className="listWorkout">
             {exerciseList}
         </div>
     )

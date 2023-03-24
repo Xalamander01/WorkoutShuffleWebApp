@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from './Navbar';
+import Header from './Header';
 import SingleWorkoutForm from './SingleWorkoutForm';
 import WeeklyWorkoutForm from './WeeklyWorkoutForm';
 import Database from './Database';
@@ -18,18 +18,12 @@ export default function App() {
 
     return (
         <div>
-            <Navbar
-                showWorkoutForm={showWorkoutForm}
+            <Header
                 setShowWorkoutForm={setShowWorkoutForm}
-                showSplitForm={showSplitForm}
                 setShowSplitForm={setShowSplitForm}
-                showDatabase={showDatabase}
                 setShowDatabase={setShowDatabase}
-                showSearch={showSearch}
                 setShowSearch={setShowSearch}
-                showAbout={showAbout}
                 setShowAbout={setShowAbout}
-                showLogin={showLogin}
                 setShowLogin={setShowLogin}
             />
             {showWorkoutForm && <SingleWorkoutForm />}

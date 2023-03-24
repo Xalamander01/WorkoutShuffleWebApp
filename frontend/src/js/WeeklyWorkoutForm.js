@@ -10,6 +10,7 @@ export default function WeeklyWorkoutForm() {
         repetitionTolerance:"5"
     })
     const [submittedWeeklyPreferences, setSubmittedWeeklyPreferences] = React.useState(null)
+
     const weeklyWorkoutsElement = (
         <div>
             <ListManyWorkouts workouts={weeklyWorkouts} ReShuffle={setSubmittedWeeklyPreferences} />
@@ -18,7 +19,6 @@ export default function WeeklyWorkoutForm() {
     )
 
     React.useEffect(()=>{
-                    console.log("SUBMITTED WEEKLY PREFS FROM FORM " + JSON.stringify(submittedWeeklyPreferences))
                     if ( submittedWeeklyPreferences != null ) {
                         let fetchUrl = "/weeklyWorkouts/"+submittedWeeklyPreferences.workoutsPerWeek+"/"+submittedWeeklyPreferences.repetitionTolerance
                         fetch(fetchUrl).then(res=>res.json()).then(data=>setWeeklyWorkouts(data))
@@ -47,7 +47,7 @@ export default function WeeklyWorkoutForm() {
 
     return (
         <div key="WeeklyWorkoutForm" className="weeklyWorkoutForm">
-            { submittedWeeklyPreferences == null ? <div> <h3>Get a weekly split</h3>
+            { ( submittedWeeklyPreferences == null || weeklyWorkouts == null ) ? <div> <h3>Get a weekly split</h3>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="workoutsPerWeek">I would like to train </label>
                 <select name="workoutsPerWeek" id="workoutsPerWeek" value={weeklyPreferences.workoutsPerWeek} onChange={handleChange}>
@@ -91,7 +91,7 @@ export default function WeeklyWorkoutForm() {
                 <label htmlFor="1">Strongly agree</label><br/>
                 <input type="submit" value="Submit"/>
             </form> </div> : null }
-            { ( submittedWeeklyPreferences != null ) ? weeklyWorkoutsElement : null }
+            { ( submittedWeeklyPreferences != null && weeklyWorkouts != null ) ? weeklyWorkoutsElement : null }
         </div>
     )
 }
