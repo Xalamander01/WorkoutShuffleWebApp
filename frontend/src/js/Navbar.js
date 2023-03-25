@@ -34,14 +34,17 @@ export default function Navbar(props) {
         <nav className="navbar">
             <button
                 className="navButton--singleForm"
+                id="singleForm"
                 onClick={showSingleWorkoutForm}
                 >Single Workout Form</button>
             <button
                 className="navButton--weeklyForm"
+                id="weeklyForm"
                 onClick={showWeeklyWorkoutForm}
                 >Weekly Workout Form</button>
             <button
                 className="navButton--database"
+                id="database"
                 onClick={showDatabase}
                 >Full Exercise Database</button>
             <button className="navButton--search">Search for Exercise</button>

@@ -76,7 +76,7 @@ export default function SingleWorkoutForm() {
                         onChange={handleChange} />
                     <label htmlFor="fullBody">Full Body</label><br/>
                 </fieldset>
-                <input type="submit" value="Submit"/>
+                <button type="submit">Submit</button>
             </form> </div> : null }
             { submittedWorkoutType != null ? workoutElement : null }
         </div>

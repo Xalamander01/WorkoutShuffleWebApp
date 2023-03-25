@@ -1,12 +1,26 @@
 .exercise {
 }
 
+.exercise > button {
+    width:40px;
+    margin:10px;
+    font-weight: 1000;
+}
+
+.exercise > div {
+    justify-content:center;
+    font-weight: bold;
+    margin:10px;
+    height:100px;
+    padding:10px 0px 15px 0px;
+}
+
 .exerciseShortName {
     font-size:x-large;
 }
 
 .exerciseLongName {
-    font-weight:bold;
+    display:inline;
 }
 
 .exerciseDescription {

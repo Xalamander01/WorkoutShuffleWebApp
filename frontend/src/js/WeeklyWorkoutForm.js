@@ -89,7 +89,7 @@ export default function WeeklyWorkoutForm() {
                     onChange={handleChange}
                     checked={weeklyPreferences.repetitionTolerance === "1"}/>
                 <label htmlFor="1">Strongly agree</label><br/>
-                <input type="submit" value="Submit"/>
+                <button type="submit">Submit</button>
             </form> </div> : null }
             { ( submittedWeeklyPreferences != null && weeklyWorkouts != null ) ? weeklyWorkoutsElement : null }
         </div>
