@@ -12,7 +12,7 @@ export default function Exercise(props) {
     return (
         <div className="exercise">
             <button>{index}</button>
-            <div className="exerciseLongName">{exercise.exerciseLongName.toUpperCase()}</div>
+            <div className="exerciseLongName">{exercise.exerciseShortName.toUpperCase()}</div>
         </div>
     )
 }
