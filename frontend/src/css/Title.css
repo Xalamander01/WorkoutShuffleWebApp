@@ -2,20 +2,24 @@
     display:flex;
     justify-content:center;
     font-size:80px;
+    padding: 25px 0px;
 }
 
 .title > div {
     display:flex;
     justify-content:center;
     font-family:crackman;
+    color:rgba(189,204,212, 1);
 }
 
 .title--workout {
     justify-items:end;
+    padding-right:10px;
 }
 
 .title--shuffle {
     justify-items:start;
+    padding-left:10px;
 }
 
 

@@ -45,38 +45,43 @@ export default function SingleWorkoutForm() {
                         name="workoutType"
                         value="push"
                         checked={workoutType === "push"}
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                        className="radio" />
                     <label htmlFor="push">Push</label><br/>
                     <input type="radio"
                         id="pull"
                         name="workoutType"
                         value="pull"
                         checked={workoutType === "pull"}
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                        className="radio" />
                     <label htmlFor="pull">Pull</label><br/>
                     <input type="radio"
                         id="upper"
                         name="workoutType"
                         value="upper"
                         checked={workoutType === "upper"}
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                        className="radio" />
                     <label htmlFor="upper">Push and Pull</label><br/>
                     <input type="radio"
                         id="legs"
                         name="workoutType"
                         value="legs"
                         checked={workoutType === "legs"}
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                        className="radio" />
                     <label htmlFor="legs">Legs</label><br/>
                     <input type="radio"
                         id="fullBody"
                         name="workoutType"
                         value="fullBody"
                         checked={workoutType === "fullBody"}
-                        onChange={handleChange} />
+                        onChange={handleChange}
+                        className="radio" />
                     <label htmlFor="fullBody">Full Body</label><br/>
                 </fieldset>
-                <button type="submit">Submit</button>
+                <button type="submit" className="submitButton">submit</button>
             </form> </div> : null }
             { submittedWorkoutType != null ? workoutElement : null }
         </div>

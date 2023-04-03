@@ -1,3 +1,13 @@
 .weeklyWorkoutForm {
     margin-top:70px;
+    font-family: uni_sans_heavy;
+    margin-left:10px;
+}
+
+.radio {
+    margin:10px;
+}
+
+.submitButton {
+    margin-top: 40px;
 }

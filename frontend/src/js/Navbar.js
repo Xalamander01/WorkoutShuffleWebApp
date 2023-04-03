@@ -36,20 +36,34 @@ export default function Navbar(props) {
                 className="navButton--singleForm"
                 id="singleForm"
                 onClick={showSingleWorkoutForm}
-                >Single Workout Form</button>
+                >single workout</button>
             <button
                 className="navButton--weeklyForm"
                 id="weeklyForm"
                 onClick={showWeeklyWorkoutForm}
-                >Weekly Workout Form</button>
+                >weekly workout</button>
             <button
                 className="navButton--database"
                 id="database"
                 onClick={showDatabase}
-                >Full Exercise Database</button>
-            <button className="navButton--search">Search for Exercise</button>
-            <button className="navButton--about">About</button>
-            <button className="navButton--login">Login</button>
+                >all exercises</button>
+            <button
+                className="navButton--search"
+                id="search"
+
+                >search</button>
+            <button
+                className="navButton--about"
+                id="about"
+
+                >about</button>
+            <button
+                className="navButton--login"
+                id="login"
+
+                >
+                <img src={require('../css/img/login.png')} alt="login"/>
+                login</button>
         </nav>
     )
 }

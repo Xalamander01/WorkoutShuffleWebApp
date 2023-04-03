@@ -12,18 +12,22 @@ body {
 }
 
 button {
+    background-color: rgba(189,204,212, 1);
     width:150px;
-    height:40px;
+    height:auto;
     border-radius:20px;
-    border-color:white;
-    box-shadow: 2px 2px 0px 1px rgba(220, 200, 220, 1);
+    border-color:rgba(189,204,212, 1);
+    box-shadow: 3px 4px 0px 1px rgba(172, 174, 212, 1);
+    font-family: hardpixel;
+    font-size:18px;
+    border: 0px;
 }
 
 button:hover, button:focus {
-    background-color:rgba(220, 200, 220, 1);
+    background-color:rgba(172, 174, 212, 1);
     box-shadow: 0px 0px 0px 0px;
-    border-color:rgba(220, 200, 220, 1);
-    transform: translateY(2px) translateX(2px)
+    border-color:rgba(172, 174, 212, 1);
+    transform: translateX(3px) translateY(4px)
 }
 
 code {
@@ -34,4 +38,14 @@ code {
 @font-face {
     font-family: crackman;
     src: url(fonts/crackman/Crackman.otf);
+}
+
+@font-face {
+    font-family: hardpixel;
+    src: url(fonts/hardpixel/Hardpixel.otf);
+}
+
+@font-face {
+    font-family: uni_sans_heavy;
+    src: url(fonts/uni_sans/Uni_Sans_Heavy.otf);
 }

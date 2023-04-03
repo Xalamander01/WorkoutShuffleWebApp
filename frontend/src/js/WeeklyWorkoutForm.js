@@ -63,33 +63,38 @@ export default function WeeklyWorkoutForm() {
                     name="repetitionTolerance"
                     value="5"
                     onChange={handleChange}
-                    checked={weeklyPreferences.repetitionTolerance === "5"}/>
+                    checked={weeklyPreferences.repetitionTolerance === "5"}
+                    className="radio" />
                 <label htmlFor="5">Strongly disagree</label>
                 <input type="radio" id="4"
                     name="repetitionTolerance"
                     value="4"
                     onChange={handleChange}
-                    checked={weeklyPreferences.repetitionTolerance === "4"}/>
+                    checked={weeklyPreferences.repetitionTolerance === "4"}
+                    className="radio" />
                 <label htmlFor="4">Disagree</label>
                 <input type="radio" id="3"
                     name="repetitionTolerance"
                     value="3"
                     onChange={handleChange}
-                    checked={weeklyPreferences.repetitionTolerance === "3"}/>
+                    checked={weeklyPreferences.repetitionTolerance === "3"}
+                    className="radio" />
                 <label htmlFor="3">Neutral</label>
                 <input type="radio" id="2"
                     name="repetitionTolerance"
                     value="2"
                     onChange={handleChange}
-                    checked={weeklyPreferences.repetitionTolerance === "2"}/>
+                    checked={weeklyPreferences.repetitionTolerance === "2"}
+                    className="radio" />
                 <label htmlFor="2">Agree</label>
                 <input type="radio" id="1"
                     name="repetitionTolerance"
                     value="1"
                     onChange={handleChange}
-                    checked={weeklyPreferences.repetitionTolerance === "1"}/>
+                    checked={weeklyPreferences.repetitionTolerance === "1"}
+                    className="radio" />
                 <label htmlFor="1">Strongly agree</label><br/>
-                <button type="submit">Submit</button>
+                <button type="submit" className="submitButton">submit</button>
             </form> </div> : null }
             { ( submittedWeeklyPreferences != null && weeklyWorkouts != null ) ? weeklyWorkoutsElement : null }
         </div>

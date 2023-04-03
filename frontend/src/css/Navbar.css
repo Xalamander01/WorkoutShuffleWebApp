@@ -5,12 +5,26 @@
     align-items: center;
 }
 
-.navbar > button:not(#database) {
-    margin:3px;
+.navbar > button:not(#about) {
+    margin:10px;
 }
 
-.navButton--database {
+.navButton--login > img {
+    padding-right:20px;
+    width:14px;
+    height:14px;
+}
+
+.navButton--about {
     margin-left: auto;
+}
+
+.navButton--singleForm {
+    width:160px;
+}
+
+.navButton--weeklyForm {
+    width: 170px;
 }
 
 @media all and (max-width: 600px) {
